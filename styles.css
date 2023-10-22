@@ -54,6 +54,8 @@ body{
     margin-top: 20vh;
     text-align: center;
     color: rgb(16,16,16);
+    width: 100%;
+    overflow: hidden;
 }
 
 .navbar{
@@ -98,15 +100,27 @@ body{
 }
 
 #hl{
-    opacity: 0;
     float: left; 
+    width: 45%;
+}
+
+#hc{
+    width: 10%;
+}
+
+#hr{
+    float: right;
+    width: 45%;
+}
+
+#fade1{
+    opacity: 0;
     animation: 2s ease 0s normal forwards 1 fadein;
     /* text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff; */
 }
 
-#hr{
+#fade2{
     opacity: 0;
-    float: right; 
     animation: 2s ease 2s normal forwards 1 fadein;
     /* text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff; */
 }
