@@ -54,7 +54,8 @@ body{
     margin-top: 20vh;
     text-align: center;
     color: rgb(16,16,16);
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
 }
 
@@ -100,17 +101,19 @@ body{
 }
 
 #hl{
-    float: left; 
-    width: 45%;
+    float: left;
+    width: 40%;
+    text-align: right;
 }
 
 #hc{
-    width: 10%;
+    width: 20%;
 }
 
 #hr{
     float: right;
-    width: 45%;
+    width: 40%;
+    text-align: left;
 }
 
 #fade1{
