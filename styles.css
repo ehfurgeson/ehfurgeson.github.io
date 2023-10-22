@@ -57,9 +57,16 @@ body{
 }
 
 #typewriter{
+    font-size: 25px;
     white-space: nowrap;
     overflow: hidden;
     animation: typing 3.5s steps(40, end);
+}
+
+@media screen and (min-width: 1024px) {
+    body {
+        font-size: 2em;
+    }
 }
 
 .navbar{
