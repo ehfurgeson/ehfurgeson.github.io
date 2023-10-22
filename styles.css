@@ -102,7 +102,7 @@ body{
     float: left; 
     margin-right: 5vw;
     animation: 2s ease 0s normal forwards 1 fadein;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
 }
 
 #fade2{
@@ -110,7 +110,7 @@ body{
     float: right; 
     margin-left: 5vw;
     animation: 2s ease 2s normal forwards 1 fadein;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
 }
 
 @keyframes typing {
