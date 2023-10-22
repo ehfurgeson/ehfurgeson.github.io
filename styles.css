@@ -53,23 +53,11 @@ body{
 #welcome{
     margin-top: 20vh;
     text-align: center;
-    color: rgb(16,16,16)
-}
-
-#typewriter{
-    font-size: 25px;
-    white-space: nowrap;
-    overflow: hidden;
-    animation: typing 3.5s steps(40, end);
-}
-
-@media screen and (min-width: 1024px) {
-    body {
-        font-size: 2em;
-    }
+    color: rgb(16,16,16);
 }
 
 .navbar{
+    height: 15vh;
     background-color: rgba(0,0,0,0.2);
     overflow: hidden;
     position: fixed;
@@ -107,6 +95,16 @@ body{
 #fade{
     opacity: 0;
     animation: 2s ease 3.5s normal forwards 1 fadein;
+}
+
+#fade1{
+    opacity: 0;
+    animation: 2s ease 0s normal forwards 1 fadein;
+}
+
+#fade2{
+    opacity: 0;
+    animation: 2s ease 2s normal forwards 1 fadein;
 }
 
 @keyframes typing {
