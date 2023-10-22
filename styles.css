@@ -1,0 +1,113 @@
+body{
+    background-color: rgb(16,16,16);
+    font-family: monospace;
+    letter-spacing: .08em;
+    line-height: 2;
+}
+
+#bg{
+    background-image: url("images/flower.JPG");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+}
+
+#projects{
+    height: 100vh;
+    color: rgb(255,250,220);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+#qualifications{
+    height: 100vh;
+    color: rgb(255,250,220);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+}
+
+#q{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+#welcome{
+    margin-top: 20vh;
+    text-align: center;
+    color: rgb(16,16,16)
+}
+
+#typewriter{
+    white-space: nowrap;
+    overflow: hidden;
+    animation: typing 3.5s steps(40, end);
+}
+
+.navbar{
+    background-color: rgba(0,0,0,0.2);
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: rgb(255,250,220);
+}
+
+.navbar button{
+    border: 0;
+    display: block;
+    background-color: rgba(0,0,0,0);
+    color: #f2f2f2;
+    text-align: center;
+    text-decoration: none;
+    padding-right: 50px;
+    padding-left: 50px;
+    font-size: 17px;
+}
+
+.navbar button:hover{
+    background-color: rgba(0,0,0,0.5);
+    padding-right: 50px;
+    padding-left: 50px;
+    border-radius: 5px;
+}
+
+.navbar button.active{
+    background-color: rgba(0,0,0,0.5);
+    padding-right: 50px;
+    padding-left: 50px;
+    border-radius: 5px;
+}
+
+#fade{
+    opacity: 0;
+    animation: 2s ease 3.5s normal forwards 1 fadein;
+}
+
+@keyframes typing {
+    from {width: 0%}
+    to {width: 100%}
+}
+
+@keyframes fadein {
+    from {opacity: 0}
+    to {opacity: 1}
+}
