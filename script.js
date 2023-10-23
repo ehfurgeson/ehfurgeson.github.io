@@ -33,7 +33,7 @@ window.onscroll = function() {
   if (prevScrollpos > currentScrollPos) {
     document.getElementById("fade").style.height = "15vh";
   } else {
-    document.getElementById("fade").style.height = "5vh";
+    document.getElementById("fade").style.height = "10vh";
   }
   prevScrollpos = currentScrollPos;
 }
