@@ -1,11 +1,11 @@
 body{
     background-color: rgb(16,16,16);
-    font-family: monospace;
-    letter-spacing: .08em;
-    line-height: 2;
 }
 
 #bg{
+    font-family: monospace;
+    letter-spacing: .08em;
+    line-height: 2;
     background-image: url("images/flower.JPG");
     background-size: cover;
     background-repeat: no-repeat;
