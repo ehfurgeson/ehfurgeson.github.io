@@ -76,22 +76,22 @@ body{
     color: #f2f2f2;
     text-align: center;
     text-decoration: none;
-    padding-right: 1vw;
-    padding-left: 1vw;
+    padding-right: 10%;
+    padding-left: 10%;
     font-size: 17px;
 }
 
 .navbar button:hover{
     background-color: rgba(0,0,0,0.5);
-    padding-right: 1vw;
-    padding-left: 1vw;
+    padding-right: 10%;
+    padding-left: 10%;
     border-radius: 5px;
 }
 
 .navbar button.active{
     background-color: rgba(0,0,0,0.5);
-    padding-right: 1vw;
-    padding-left: 1vw;
+    padding-right: 10%;
+    padding-left: 10%;
     border-radius: 5px;
 }
 
