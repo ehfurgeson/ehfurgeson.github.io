@@ -38,6 +38,7 @@ body{
 input{
     border-radius: 30px;
     border: 0px;
+    width: 100%
 }
 
 #in{
