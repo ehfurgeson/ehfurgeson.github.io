@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <link href="styles.css" rel="stylesheet">
+        <link rel="icon" href="images/mountain.png" type="image/x-icon">
+        <!-- image sourced from https://github.com/microsoft/fluentui-emoji/tree/main -->
+        <title>Appalachian Trail Planner</title>
+        <script src="script.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="login">
+            <h1>Appalachain Trail Planner</h1>
+            <!-- this login is completely temporary, may not even have a login in the final, but if I do then I may not even keep it in this position, just to get a feel for how it looks-->
+            <!-- <a href="google.com">Login</a> -->
+        </div>
+        <div id="total">
+            <div id="calc">
+                <div id="inner">
+                    <h1>Planning Calculator</h1>
+                    <div id="in">
+                        <div id="inspread">
+                            <input autocomplete="off" type="text" placeholder="Miles Per Day">
+                            <p>How fit do you think you are? This will primarily determite how many miles per day you can hike, but also as you go you will get used to it and be able to do more</p>
+                        </div>
+                        <div id="inspread">
+                            <input autocomplete="off" type="text" placeholder="Days Per Week">
+                        <p>How many days do you want to hike per week? Even experienced hikers often take one day off!</p>
+                        </div>
+                        <div id="inspread">
+                            <input autocomplete="off" type="text" placeholder="Number of Weeks">
+                            <p>How many weeks at a time will you be able to hike? Can you only get a week off per year to dedicate to hiking? Or are you a student who gets 10?</p>
+                        </div>
+                    </div>
+                    <div id="out">
+                        <h2>Results</h2>
+                        <ul style="align-content: left;">
+                            <li>Number of Segments</li>
+                            <li>Number of days hiking</li>
+                            <li>Number of days Resting</li>
+                        </ul>
+                        <p>Some recommendations</p>
+                    </div>
+                </div>
+            </div>
+            <div id="map">
+                <!--
+                    eventually I will likely replace this by inputting all the data of the shelters and stuff from this google map into a leaflet or something akin to it
+                    this will make it so that there can be more interactivity and such, but for now this is simple and pre made to get made quickly
+                    here is a list of different possiblities of things I could use
+
+                    1. Google Maps: This is a widely used mapping service that provides comprehensive and accurate map data. It also offers various customization options1.
+
+                    2. Leaflet: This is an open-source JavaScript library for mobile-friendly interactive maps. It’s lightweight and has all the features most developers need for online maps1.
+
+                    3. Mapbox: This service provides customizable maps for websites and applications. It’s used by several large companies and offers robust features1.
+
+                    4. OpenLayers: This is an open-source JavaScript library that allows you to load, display, and render maps from multiple sources on web pages12.
+
+                    5. OpenStreetMap: This is a community-driven map service where anyone can contribute and maintain data about roads, trails, cafés, railway stations, and much more1.
+
+                    https://sl.bing.net/dUFSbl046Wy
+                -->
+                <iframe src="https://www.google.com/maps/d/embed?mid=1FXVxT4jBpdbFcvZV7yTHSsOA26NBShk_&ehbc=2E312F" width="100%" height="100%" style="border-radius: 25px;"></iframe>
+            </div>
+        </div>
+    </body>
+</html>

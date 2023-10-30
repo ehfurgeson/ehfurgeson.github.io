@@ -5,6 +5,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <link href="styles.css" rel="stylesheet">
         <link rel="icon" href="images/cherry_blossom.png" type="image/x-icon">
+        <!-- image sourced from https://github.com/microsoft/fluentui-emoji/tree/main -->
         <title>Eli's Portfolio</title>
         <script src="script.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,10 +24,9 @@
                 </div>
             </div>
             <div class="navbar" id="fade">
-                <p>&nbsp</p>
                 <button type="button" onclick="smoothScroll(document.getElementById('projects'))">Projects</button>
                 <button type="button" onclick="smoothScroll(document.getElementById('qualifications'))">Qualifications</button>
-                <p>&nbsp</p>
+                <button type="button" onclick="smoothScroll(document.getElementById('me'))">About Me</button>
             </div>
         </div>
         <div id="projects">
@@ -37,24 +37,42 @@
                     just setting up a similar thing as I have in the qual div
                     images go on left, text/ hyperlinks go on right
                 -->
-                <div style="float: left; padding: 10px;">
-                    Images
+                <div style="float: left;">
+                    <img src="atrail/images/mountain.png">
+                    <!-- image sourced from https://github.com/microsoft/fluentui-emoji/tree/main -->
                 </div>
-                <div style="float: right; padding: 30px;">
-                    Project description and hyperlink
+                <div style="float: right;">
+                    A <a href="atrail/index.html">website</a> where you can plan out a segment hike of the Appalachian trail, this combines my love for hiking and backpacking with my love for development and design
                 </div>
             </div>
-            <h5>Community Cooking App</h5>
+            <h5>My Portfolio (This website)</h5>
             <div id="p">
                 <!--
                     just setting up a similar thing as I have in the qual div
                     images go on left, text/ hyperlinks go on right
                 -->
-                <div style="float: left; padding: 10px;">
-                    Images
+                <div style="float: left;">
+                    <img src="images/bust_in_silhouette.png">
+                    <!-- image sourced from https://github.com/microsoft/fluentui-emoji/tree/main -->
                 </div>
-                <div style="float: right; padding: 30px;">
-                    Project description and hyperlink
+                <div style="float: right;">
+                    This <a href="index.html">website</a> is of course just the one you are currently at, it tells you about me and shows you how I liked to style things and a little bit about me personally
+                </div>
+            </div>
+            <p>This section here will be commented out after submitted</p>
+            <h5>Community Cooking App</h5>
+            <div id="p">
+                <div style="float: left;">
+                    <img src="cocook/images/pot_of_food.png">
+                    //replace with proper commenting if this section ever gets uncommented// image sourced from https://github.com/microsoft/fluentui-emoji/tree/main //replace with proper commenting if this section ever gets uncommented//
+                </div>
+                <div style="float: right;">
+                    <p>This project is only a concept, so the <a href="cocook/index.html">website</a> is completely empty, however I think that it would be a great community building webapp, here are some of the planned features</p>
+                    <ul>
+                        <li>People who know how to cook something will post and post free or a set total price</li>
+                        <li>People will join saying how much they'd be willing to pay and if that many people join to make it enough that the total price = sum of how much everyone would pay then the event happens with those people who can pay said price</li>
+                        <li>Rating chefs/teachers to say how good they were at teaching, and how good the recipe was</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -62,24 +80,32 @@
             <h2>Qualifications</h2>
             <h5>Studying at Cornell University</h5>
             <div id="q">
-                <div style="float: left; padding: 10px;">
+                <div style="float: left;">
                     <img src="images/cornell.png" style="max-width: 125px; height: auto;">
                 </div>
-                <div style="float: right; padding: 30px;">
+                <div style="float: right;">
                     <ul style="text-align: left;">
                         Relevant Coursework
-                        <li>Networks, Crowds, and Markets: Reasoning About a Highly Connected World</li>
-                        <li>Discrete Structures</li>
-                        <li>Intro to Computer Science</li>
-                        <li>Linear Algebra and its Applications</li>
-                        <li>Multivariable Calculus and its Applications</li>
+                        <li>CS 2850 / ECON 2040 : Networks, Crowds, and Markets: Reasoning About a Highly Connected World</li>
+                        <li>CS 1110 : Intro to Computer Science</li>
+                        <li>MATH 1920 : Multivariable Calculus and its Applications</li>
                     </ul>
                 </div>
             </div>
             <h5>Accounting</h5>
-            <p>Work description</p>
-            <h5>Project Management</h5>
-            <p>Project descriptions</p>
+            <ul>
+                <li>Analyzed thousands of transactions to identify trends and patterns</li>
+                <li>Managed and balanced clients’ books using QuickBooks Online</li>
+            </ul>
+        </div>
+        <div id="me">
+            <h1>I'm Eli Furgeson</h1>
+            <p>I love running</p>
+            <p>and backpacking</p>
+            <p>and cycling</p>
+            <p>I also love playing board games and video games with friends</p>
+            <p>I'm from Chicago and have always loved it there</p>
+            <a href="hicreate/index.html">Click here to see some creative projects I have done</a>
         </div>
     </body>
 </html>
