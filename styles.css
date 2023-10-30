@@ -157,3 +157,8 @@ body{
 h2{
     padding-bottom: 25px;
 }
+
+img{
+    max-width: 30vw;
+    height: auto;
+}
