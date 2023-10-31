@@ -75,6 +75,8 @@
         var now = document.getElementById('now');
 
         // Get output elements
+        var mpw = document.getElementById('mpw');
+        var mps = document.getElementById('mps');
         var nos = document.getElementById('nos');
         var nod = document.getElementById('nod');
         var nor = document.getElementById('nor');
@@ -96,7 +98,11 @@
                 var numberOfSegments = Math.ceil(2198.4 / (milesPerDay * daysPerWeek * numberOfWeeks));
                 var numberOfDaysHiking = daysPerWeek * numberOfWeeks;
                 var numberOfDaysResting = (7 - daysPerWeek) * numberOfWeeks;
+                var milesPerWeek = milesPerDay * daysPerWeek;
+                var milesPerSegment = milesPerWeek * numberOfWeeks;
 
+                mpw.innerHTML = milesPerWeek;
+                mps.innerHTML = milesPerSegment;
                 nos.innerHTML = numberOfSegments;
                 nod.innerHTML = numberOfDaysHiking;
                 nor.innerHTML = numberOfDaysResting;
