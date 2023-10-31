@@ -1,6 +1,8 @@
 function adjustLayout() {
     var calc = document.getElementById("calc");
     var map = document.getElementById("map");
+    var body = document.getElementById('body');
+    var total = document.getElementById('total');
 
     // Check if the device supports touch events
     if ('ontouchstart' in window) {
@@ -11,15 +13,14 @@ function adjustLayout() {
         document.body.appendChild(script);
     
         // Adjust the style of some elements
-        var total = document.getElementById('total');
-        var calc = document.getElementById('calc');
-        var map = document.getElementById('map');
         calc.style.width = '100vw';
         calc.style.height = '90vh';
         map.style.width = '100vw';
         map.style.height = '20vh';
         total.style.flexDirection = 'column';
-        total.style.overflow = 'auto'
+        total.style.overflow = 'auto';
+        body.style.overflow = 'auto';
+        body.style.height = 'auto';
     }
 
     else if (window.innerWidth > window.innerHeight){
@@ -27,14 +28,19 @@ function adjustLayout() {
         calc.style.height = "90vh";
         map.style.width = "50vw";
         map.style.height = "90vh";
-        document.getElementById("total").style.flexDirection = "row";
+        body.style.overflow = 'hidden';
+        body.style.height = '100vh';
+        total.style.flexDirection = "row";
+        
     }
     else if (window.innerWidth < window.innerHeight){
         calc.style.width = "100vw";
         calc.style.height = "45vh";
         map.style.width = "100vw";
         map.style.height = "45vh";
-        document.getElementById("total").style.flexDirection = "column";
+        body.style.overflow = 'hidden';
+        body.style.height = '100vh';
+        total.style.flexDirection = "column";
     }
 }
 
