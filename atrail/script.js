@@ -16,7 +16,7 @@ function adjustLayout() {
         calc.style.width = '100vw';
         calc.style.height = '90vh';
         map.style.width = '100vw';
-        map.style.height = '20vh';
+        map.style.height = '50vh';
         total.style.flexDirection = 'column';
         total.style.overflow = 'auto';
         body.style.overflow = 'auto';
