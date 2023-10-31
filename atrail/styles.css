@@ -22,9 +22,15 @@ body{
     align-items: stretch;
 }
 
-#map, #calc{
+#map{
     padding: 20px;
     text-align: center;
+}
+
+#calc{
+    padding: 20px;
+    text-align: center;
+    overflow: unset;
 }
 
 #inner{
@@ -46,6 +52,10 @@ input{
     width: 50%;
     height: 100%;
     padding: 25px;
+}
+
+#out{
+    font-size: calc(10px + .5vw);
 }
 
 #inspread{

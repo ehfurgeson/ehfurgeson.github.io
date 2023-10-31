@@ -11,9 +11,9 @@ function adjustLayout() {
     }
     else if (window.innerWidth < window.innerHeight){
         calc.style.width = "100vw";
-        calc.style.height = "45vh";
+        calc.style.height = "65vh";
         map.style.width = "100vw";
-        map.style.height = "45vh";
+        map.style.height = "30vh";
         document.getElementById("total").style.flexDirection = "column";
     }
 }
