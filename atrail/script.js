@@ -11,13 +11,15 @@ function adjustLayout() {
         document.body.appendChild(script);
     
         // Adjust the style of some elements
+        var total = document.getElementById('total');
         var calc = document.getElementById('calc');
         var map = document.getElementById('map');
         calc.style.width = '100vw';
-        calc.style.height = '70vh';
+        calc.style.height = '90vh';
         map.style.width = '100vw';
         map.style.height = '20vh';
-        document.getElementById('total').style.flexDirection = 'column';
+        total.style.flexDirection = 'column';
+        total.style.overflow = 'auto'
     }
 
     else if (window.innerWidth > window.innerHeight){
