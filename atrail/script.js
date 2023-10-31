@@ -2,14 +2,24 @@ function adjustLayout() {
     var calc = document.getElementById("calc");
     var map = document.getElementById("map");
 
-    if (/Android|webOS|iPhone|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-    // Take the user to a different screen here.
-        calc.style.width = "100vw";
-        calc.style.height = "70vh";
-        map.style.width = "100vw";
-        map.style.height = "20vh";
-        document.getElementById("total").style.flexDirection = "column";
+    // Check if the device supports touch events
+    if ('ontouchstart' in window) {
+        // Load the photoswipe script
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'photoswipe/code.photoswipe-3.0.4.min.js';
+        document.body.appendChild(script);
+    
+        // Adjust the style of some elements
+        var calc = document.getElementById('calc');
+        var map = document.getElementById('map');
+        calc.style.width = '100vw';
+        calc.style.height = '70vh';
+        map.style.width = '100vw';
+        map.style.height = '20vh';
+        document.getElementById('total').style.flexDirection = 'column';
     }
+
     else if (window.innerWidth > window.innerHeight){
         calc.style.width = "50vw";
         calc.style.height = "90vh";
