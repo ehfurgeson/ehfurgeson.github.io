@@ -14,7 +14,7 @@ function adjustLayout() {
     
         // Adjust the style of some elements
         calc.style.width = '100vw';
-        calc.style.height = '90vh';
+        calc.style.height = '100vh';
         map.style.width = '100vw';
         map.style.height = '50vh';
         total.style.flexDirection = 'column';
