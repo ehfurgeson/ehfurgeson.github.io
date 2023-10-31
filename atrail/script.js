@@ -10,7 +10,6 @@ function adjustLayout() {
         map.style.height = "20vh";
         document.getElementById("total").style.flexDirection = "column";
     }
-    }
     else if (window.innerWidth > window.innerHeight){
         calc.style.width = "50vw";
         calc.style.height = "90vh";
