@@ -2,7 +2,16 @@ function adjustLayout() {
     var calc = document.getElementById("calc");
     var map = document.getElementById("map");
 
-    if (window.innerWidth > window.innerHeight){
+    if (/Android|webOS|iPhone|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+    // Take the user to a different screen here.
+        calc.style.width = "100vw";
+        calc.style.height = "70vh";
+        map.style.width = "100vw";
+        map.style.height = "20vh";
+        document.getElementById("total").style.flexDirection = "column";
+    }
+    }
+    else if (window.innerWidth > window.innerHeight){
         calc.style.width = "50vw";
         calc.style.height = "90vh";
         map.style.width = "50vw";
@@ -11,9 +20,9 @@ function adjustLayout() {
     }
     else if (window.innerWidth < window.innerHeight){
         calc.style.width = "100vw";
-        calc.style.height = "auto";
+        calc.style.height = "45vh";
         map.style.width = "100vw";
-        map.style.height = "30vh";
+        map.style.height = "45vh";
         document.getElementById("total").style.flexDirection = "column";
     }
 }
