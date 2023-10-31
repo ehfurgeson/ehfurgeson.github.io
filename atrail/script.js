@@ -13,16 +13,26 @@ function adjustLayout() {
         document.body.appendChild(script);
     
         // Adjust the style of some elements
-        calc.style.width = '100vw';
-        calc.style.height = '100vh';
-        map.style.width = '100vw';
-        map.style.height = '50vh';
-        total.style.flexDirection = 'column';
-        total.style.overflow = 'auto';
-        body.style.overflow = 'auto';
-        body.style.height = 'auto';
+        if (window.innerWidth < window.innerHeight){
+            calc.style.width = '100vw';
+            calc.style.height = '100vh';
+            map.style.width = '100vw';
+            map.style.height = '50vh';
+            total.style.flexDirection = 'column';
+            total.style.overflow = 'auto';
+            body.style.overflow = 'auto';
+            body.style.height = 'auto';
+        }
+        else if (window.innerWidth > window.innerHeight){
+            calc.style.width = "50vw";
+            calc.style.height = "90vh";
+            map.style.width = "50vw";
+            map.style.height = "90vh";
+            body.style.overflow = 'hidden';
+            body.style.height = '100vh';
+            total.style.flexDirection = "row";
+        } 
     }
-
     else if (window.innerWidth > window.innerHeight){
         calc.style.width = "50vw";
         calc.style.height = "90vh";
@@ -30,8 +40,7 @@ function adjustLayout() {
         map.style.height = "90vh";
         body.style.overflow = 'hidden';
         body.style.height = '100vh';
-        total.style.flexDirection = "row";
-        
+        total.style.flexDirection = "row"; 
     }
     else if (window.innerWidth < window.innerHeight){
         calc.style.width = "100vw";
