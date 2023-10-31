@@ -75,8 +75,6 @@
         var now = document.getElementById('now');
 
         // Get output elements
-        var mpw = document.getElementById('mpw');
-        var mps = document.getElementById('mps');
         var nos = document.getElementById('nos');
         var nod = document.getElementById('nod');
         var nor = document.getElementById('nor');
@@ -90,21 +88,22 @@
                 var daysPerWeek = parseInt(dpw.value);
                 var numberOfWeeks = parseInt(now.value);
 
-                var milesPerWeek = milesPerDay * daysPerWeek;
-                var totalMiles = milesPerWeek * numberOfWeeks;
+                // Check if daysPerWeek is greater than 7
+                if (daysPerWeek > 7) {
+                    return; // Return without updating the results
+                }
+
                 var numberOfSegments = Math.ceil(2198.4 / (milesPerDay * daysPerWeek * numberOfWeeks));
                 var numberOfDaysHiking = daysPerWeek * numberOfWeeks;
                 var numberOfDaysResting = (7 - daysPerWeek) * numberOfWeeks;
 
-
-                mpw.innerHTML = milesPerWeek;
-                mps.innerHTML = totalMiles;
                 nos.innerHTML = numberOfSegments;
                 nod.innerHTML = numberOfDaysHiking;
                 nor.innerHTML = numberOfDaysResting;
 
                 // Add your recommendations logic here
                 var recommendations = '';
+                var milesPerWeek = milesPerDay * daysPerWeek;
 
                 if (milesPerWeek < 50 && numberOfWeeks == 1) {
                     recommendations += 'Hiking less than 50 miles in a week is a great start! Make sure to pace yourself and enjoy the journey.';
