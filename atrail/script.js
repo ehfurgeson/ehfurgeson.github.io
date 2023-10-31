@@ -11,7 +11,7 @@ function adjustLayout() {
     }
     else if (window.innerWidth < window.innerHeight){
         calc.style.width = "100vw";
-        calc.style.height = "100%";
+        calc.style.height = "auto";
         map.style.width = "100vw";
         map.style.height = "30vh";
         document.getElementById("total").style.flexDirection = "column";
