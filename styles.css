@@ -1,5 +1,6 @@
 body{
     background-color: rgb(16,16,16);
+    font-family: monospace;
 }
 
 #bg{
@@ -114,7 +115,7 @@ body{
 
 #fade{
     opacity: 0;
-    animation: 2s ease 3.5s normal forwards 1 fadein;
+    animation: 1s ease 1s normal forwards 1 fadein;
 }
 
 #hl{
@@ -135,13 +136,13 @@ body{
 
 #fade1{
     opacity: 0;
-    animation: 2s ease 0s normal forwards 1 fadein;
+    animation: 1s ease 0s normal forwards 1 fadein;
     /* text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff; */
 }
 
 #fade2{
     opacity: 0;
-    animation: 2s ease 2s normal forwards 1 fadein;
+    animation: 1s ease 1s normal forwards 1 fadein;
     /* text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff; */
 }
 
