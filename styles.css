@@ -147,6 +147,10 @@ body{
     /* text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff; */
 }
 
+#typed{
+    animation: typing;
+}
+
 @keyframes typing {
     from {width: 0%}
     to {width: 100%}
