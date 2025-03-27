@@ -3,8 +3,8 @@
 Recipe JSON Synchronizer
 
 This script scans the recipes directory for HTML files and updates the recipes.json file
-to ensure all "live" recipes are included. It detects recipe status based on a meta tag
-in the HTML head section.
+to ensure all "live" recipes are included and any "dead" recipes or non-existent files
+are removed from the JSON.
 
 Usage:
     python sync_recipes.py
@@ -34,8 +34,12 @@ def extract_recipe_metadata(html_path):
     
     # Check for recipe status meta tag
     status_meta = soup.find("meta", attrs={"name": "recipe-status"})
-    if not status_meta or status_meta.get("content", "").lower() != "live":
-        return None  # Recipe is not marked as "live"
+    if not status_meta:
+        return None  # Recipe has no status meta tag
+    
+    status = status_meta.get("content", "").lower()
+    if status != "live":
+        return None  # Recipe is marked as non-live
     
     # Extract basic metadata
     title = soup.title.string if soup.title else Path(html_path).stem.replace("-", " ").title()
@@ -158,6 +162,12 @@ def main():
     # Create a dictionary of current recipes by ID for easy lookup
     current_recipe_dict = {recipe["id"]: recipe for recipe in current_recipes}
     
+    # Keep track of recipe template if it exists in the JSON
+    template_recipe = None
+    if "recipe-template" in current_recipe_dict:
+        template_recipe = current_recipe_dict["recipe-template"]
+        template_recipe["display"] = False  # Always ensure template is hidden
+    
     # Scan for HTML files in the recipes directory
     recipe_files = list(recipes_dir.glob("*.html"))
     
@@ -175,10 +185,23 @@ def main():
     for recipe_file in recipe_files:
         recipe_id = recipe_file.stem
         
-        # Skip the template file
+        # Skip the template file but make sure it stays in JSON
         if recipe_id == "recipe-template":
+            if not template_recipe:
+                # Create template entry if it doesn't exist
+                template_recipe = {
+                    "id": "recipe-template",
+                    "title": "Recipe Template",
+                    "description": "Template for creating new recipes.",
+                    "difficulty": "easy",
+                    "time": "0 mins",
+                    "servings": 0,
+                    "categories": [],
+                    "display": False
+                }
+            
             if args.verbose:
-                print(f"Skipping template file: {recipe_file}")
+                print(f"Found template file: {recipe_file}")
             continue
         
         metadata = extract_recipe_metadata(recipe_file)
@@ -212,12 +235,23 @@ def main():
         elif args.verbose:
             print(f"Skipping non-live recipe: {recipe_file}")
     
-    # Check for recipes in JSON but not in HTML files
-    for recipe_id in current_recipe_dict:
-        if recipe_id not in discovered_recipes and recipe_id != "recipe-template":
-            if args.verbose:
-                print(f"Recipe in JSON but not found as live HTML: {recipe_id}")
-            removed_count += 1
+    # Check for recipes in JSON but not in HTML files or marked as dead
+    invalid_recipes = []
+    for recipe_id, recipe in current_recipe_dict.items():
+        if recipe_id != "recipe-template":
+            # Check if recipe exists in the filesystem
+            recipe_file = recipes_dir / f"{recipe_id}.html"
+            if not recipe_file.exists():
+                if args.verbose:
+                    print(f"Recipe in JSON but file not found: {recipe_id}")
+                invalid_recipes.append(recipe_id)
+                removed_count += 1
+            elif recipe_id not in discovered_recipes:
+                # File exists but wasn't discovered (marked as non-live or has no status)
+                if args.verbose:
+                    print(f"Recipe in JSON but marked as dead or has no status: {recipe_id}")
+                invalid_recipes.append(recipe_id)
+                removed_count += 1
     
     # Update the list of recipes
     updated_recipes = list(discovered_recipes.values())
@@ -225,10 +259,8 @@ def main():
     # Sort recipes alphabetically by title
     updated_recipes.sort(key=lambda x: x["title"])
     
-    # Always keep the template in the JSON, but with display: false
-    template_recipe = next((r for r in current_recipes if r["id"] == "recipe-template"), None)
+    # Always include the template in the JSON if it exists
     if template_recipe:
-        template_recipe["display"] = False
         updated_recipes.append(template_recipe)
     
     # Print summary
@@ -238,6 +270,11 @@ def main():
     print(f"- Unchanged recipes: {unchanged_count}")
     print(f"- Removed recipes: {removed_count}")
     print(f"- Total live recipes: {len(updated_recipes) - (1 if template_recipe else 0)}")
+    
+    if invalid_recipes:
+        print("\nRemoved the following recipes from JSON:")
+        for recipe_id in invalid_recipes:
+            print(f"- {recipe_id}")
     
     # Save the updated recipes
     save_recipes_json(updated_recipes, json_path, args.dry_run)
