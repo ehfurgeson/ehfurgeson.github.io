@@ -3,112 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eli Furgeson | Personal Site</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Eli Furgeson</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #121212;
+            color: #f5f5f5;
+            background-image: linear-gradient(to bottom right, #121212, #1a1a2e);
+            min-height: 100vh;
+        }
+        
+        .nav-link {
+            position: relative;
+            text-decoration: none;
+            transition: color 0.3s;
+            color: #e0e0e0;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+        
+        .nav-link:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #4a5568, #a0aec0);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        
+        .content-card {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .content-card:hover {
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+            transform: translateY(-5px);
+        }
+
+        .inner-card {
+            background-color: #2a2a2a;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .inner-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #4a5568, #a0aec0);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .inner-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .inner-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Poker Guide Specific Styles */
+        .poker-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+        }
+        
+        .poker-table th, .poker-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #333;
+        }
+        
+        .poker-table th {
+            background-color: #2a2a2a;
+        }
+        
+        .poker-table tr:nth-child(even) {
+            background-color: #252525;
+        }
+        
+        code {
+            background-color: #333;
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
 </head>
 <body>
-    <!-- Grain overlay effect -->
-    <div class="grain" style="background-image: url('data:image/png;base64,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');"></div>
-
-    <div class="container">
-        <header>
-            <h1>Eli Furgeson</h1>
-            <div class="header-divider"></div>
-            <nav>
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="ideas/index.html" class="nav-link">Ideas</a>
-                <a href="recipes.html" class="nav-link">Recipes</a>
-                <a href="hobbies.html" class="nav-link">Hobbies</a>
+    <div class="container mx-auto px-6 py-12 max-w-5xl">
+        <header class="mb-16 text-center">
+            <h1 class="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-100 to-gray-400">Eli</h1>
+            <div class="w-24 h-1 mx-auto bg-gradient-to-r from-gray-500 to-gray-700 mb-8"></div>
+            <nav class="flex justify-center space-x-8 p-2 rounded-full bg-gray-800 bg-opacity-50 inline-flex">
+                <a href="index.html" class="nav-link font-medium">Home</a>
+                <a href="#projects" class="nav-link font-medium">Projects</a>
+                <a href="prob.html" class="nav-link font-medium">Probability</a>
+                <a href="recipes.html" class="nav-link font-medium">Recipes</a>
             </nav>
         </header>
 
         <main>
-            <section>
-                <div class="content-card">
-                    <h2>Welcome to My Personal Space</h2>
-                    <p>
-                        This is where I share my thoughts, hobbies, and personal interests outside of my 
-                        academic and professional life. You'll find recipes I enjoy cooking, my ideas about 
-                        various topics, and other personal projects I'm passionate about.
-                    </p>
-                    <a href="../index.html" class="professional-site-link">
-                        Visit my professional site
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M7 17l9.2-9.2M17 17V7H7"/>
+            <section class="mb-16">
+                <div class="content-card p-8 relative">
+                    <div class="absolute top-4 right-4 w-12 h-12 opacity-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" />
+                            <path d="M2 17L12 22L22 17" />
+                            <path d="M2 12L12 17L22 12" />
                         </svg>
-                    </a>
+                    </div>
+                    <h2 class="text-3xl font-semibold mb-6 inline-block relative">
+                        About
+                        <div class="w-full h-1 absolute -bottom-2 left-0 bg-gradient-to-r from-gray-500 to-transparent"></div>
+                    </h2>
+                    <p class="leading-relaxed text-lg">
+                        Statistics student at Cornell University with interests in data analysis, 
+                        machine learning, and mathematical modeling for everything from biology to physics to linguistics. Also in love with the outdoors and .
+                    </p>
                 </div>
             </section>
 
-            <section>
-                <div class="content-card">
-                    <h2>Featured Content</h2>
-                    <div class="card-grid">
-                        <div class="inner-card">
-                            <h3>Poker Probability Guide</h3>
-                            <p>A comprehensive guide to poker statistics and probability calculations that I've put together to help players make better decisions at the table.</p>
-                            <p class="mt-4">
-                                <a href="ideas/prob.html">Read the guide →</a>
-                            </p>
+            <section id="projects" class="mb-16">
+                <div class="content-card p-8 relative">
+                    <div class="absolute top-4 right-4 w-10 h-10 opacity-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+                            <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" />
+                            <path d="M15 9.00001C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9.00001C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9.00001Z" />
+                            <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-3xl font-semibold mb-6 inline-block relative">
+                        Projects
+                        <div class="w-full h-1 absolute -bottom-2 left-0 bg-gradient-to-r from-gray-500 to-transparent"></div>
+                    </h2>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="inner-card p-6 rounded-lg">
+                            <div class="flex items-start mb-4">
+                                <div class="p-1 rounded-full bg-gray-700 mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-bold">Semantic Idea Network</h3>
+                            </div>
+                            <p class="text-gray-300">Exploring academic research through AI-powered idea networks and knowledge graphs to visualize connections between concepts.</p>
                         </div>
-                        <div class="inner-card">
-                            <h3>Recipe Collection</h3>
-                            <p>A curated collection of my favorite recipes that I've refined over the years, from comfort food classics to experimental dishes.</p>
-                            <p class="mt-4">
-                                <a href="recipes.html">Browse recipes →</a>
-                            </p>
-                        </div>
-                        <div class="inner-card">
-                            <h3>Hobbies & Projects</h3>
-                            <p>Various personal projects and hobbies I enjoy in my free time, including chess, hiking, photography, and more.</p>
-                            <p class="mt-4">
-                                <a href="hobbies.html">Explore my hobbies →</a>
-                            </p>
+                        <div class="inner-card p-6 rounded-lg">
+                            <div class="flex items-start mb-4">
+                                <div class="p-1 rounded-full bg-gray-700 mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-bold">NBA Data Analysis</h3>
+                            </div>
+                            <p class="text-gray-300">Predicting NBA performance using random forest regression with advanced metrics and player tracking data.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
             <section>
-                <div class="content-card">
-                    <h2>About Me</h2>
-                    <p>
-                        When I'm not immersed in statistics and data science, I enjoy exploring a variety of 
-                        interests. I'm an avid poker player, which sparked my interest in probability theory. 
-                        I love cooking and experimenting with new recipes, especially dishes that combine 
-                        different cultural influences.
-                    </p>
-                    <p>
-                        I'm also passionate about hiking, photography, and chess. This personal site serves 
-                        as a creative outlet where I can share these interests with friends, family, and 
-                        anyone who happens to stumble upon it.
-                    </p>
+                <div class="content-card p-8 relative">
+                    <div class="absolute top-4 right-4 w-10 h-10 opacity-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+                            <path d="M4 4H20V16H4V4Z" />
+                            <path d="M4 16L12 21L20 16" />
+                        </svg>
+                    </div>
+                    <h2 class="text-3xl font-semibold mb-6 inline-block relative">
+                        Featured Resource
+                        <div class="w-full h-1 absolute -bottom-2 left-0 bg-gradient-to-r from-gray-500 to-transparent"></div>
+                    </h2>
+                    <div class="inner-card p-6 rounded-lg">
+                        <div class="flex items-start mb-4">
+                            <div class="p-1 rounded-full bg-gray-700 mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold">Poker Probability Guide</h3>
+                        </div>
+                        <p class="mb-6 text-gray-300">A comprehensive guide to poker statistics and quick probability calculations for players of all levels. Learn how to make better decisions at the table through mathematical reasoning.</p>
+                        <a href="prob.html" class="inline-block bg-gradient-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-500 text-white py-3 px-6 rounded-lg transition duration-300 shadow-md transform hover:scale-105">
+                            <div class="flex items-center">
+                                <span>View Guide</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </section>
         </main>
 
-        <footer>
-            <div class="footer-divider"></div>
-            <div class="social-links">
-                <a href="#" class="social-link">
-                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+        <footer class="mt-20 text-center">
+            <div class="w-24 h-1 mx-auto bg-gradient-to-r from-gray-700 to-gray-500 mb-8"></div>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="https://github.com/ehfurgeson" class="text-gray-400 hover:text-white transition-colors duration-300">
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                     </svg>
                 </a>
-                <a href="#" class="social-link">
-                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <a href="https://www.linkedin.com/in/elihouston/" class="text-gray-400 hover:text-white transition-colors duration-300">
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                     </svg>
                 </a>
-                <a href="#" class="social-link">
-                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 10.054 10.054 0 01-3.127 1.184 4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                    </svg>
-                </a>
             </div>
-            <p class="text-secondary">&copy; 2025 Eli Furgeson</p>
-            <p class="text-secondary text-sm">Made with ♦️ at Cornell University</p>
+            <p class="text-gray-400 mb-2">&copy; 2025 Eli Furgeson</p>
         </footer>
     </div>
+    
+    <!-- Subtle grain overlay effect -->
+    <div class="fixed inset-0 pointer-events-none opacity-30" style="background-image: url('data:image/png;base64,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');"></div>
 </body>
 </html>

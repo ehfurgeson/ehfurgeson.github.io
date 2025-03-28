@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probability</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #121212;
+            background-image: linear-gradient(to bottom right, #121212, #1a1a2e);
+            color: #f5f5f5;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .nav-link {
+            position: relative;
+            text-decoration: none;
+            transition: color 0.3s;
+            color: #e0e0e0;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+        
+        .nav-link:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #4a5568, #a0aec0);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        
+        .content-card {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #333;
+        }
+        
+        th {
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #252525;
+        }
+        
+        tr:nth-child(odd) {
+            background-color: #1e1e1e;
+        }
+        
+        code {
+            background-color: #333;
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #e0e0e0, #a0aec0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: bold;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+            color: #e0e0e0;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #d0d0d0;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #d0d0d0;
+        }
+
+        ul, ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            color: #d0d0d0;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .formula {
+            background-color: #252525;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border-left: 4px solid #4a5568;
+        }
+
+        .example {
+            background-color: #252525;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid #4a5568;
+        }
+
+        #table-of-contents {
+            background-color: #252525;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        #table-of-contents ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        #table-of-contents ul ul {
+            padding-left: 1.5rem;
+        }
+
+        #table-of-contents a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: color 0.2s;
+            display: inline-block;
+            padding: 0.25rem 0;
+        }
+
+        #table-of-contents a:hover {
+            color: #f5f5f5;
+            text-decoration: underline;
+        }
+        
+        /* Subtle grain overlay */
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            pointer-events: none;
+            opacity: 0.3;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="grain" style="background-image: url('data:image/png;base64,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');"></div>
+    
+    <div class="container mx-auto px-6 py-12 max-w-5xl">
+        <header class="mb-16 text-center">
+            <h1 class="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-100 to-gray-400">Eli</h1>
+            <div class="w-24 h-1 mx-auto bg-gradient-to-r from-gray-500 to-gray-700 mb-8"></div>
+            <nav class="flex justify-center space-x-8 p-2 rounded-full bg-gray-800 bg-opacity-50 inline-flex">
+                <a href="index.html" class="nav-link font-medium">Home</a>
+                <a href="index.html#projects" class="nav-link font-medium">Projects</a>
+                <a href="prob.html" class="nav-link font-medium">Probability</a>
+                <a href="recipes.html" class="nav-link font-medium">Recipes</a>
+            </nav>
+        </header>
+
+        <main class="content-card p-8">
+            <h1>I love probability and think that poker is a great example of how fun it can be, so this is a basic probability guide to statistics, expected value & some quick calculations for poker</h1>
+            <br>
+            <br>
+            <section id="table-of-contents" class="mb-8">
+                <h2>Table of Contents</h2>
+                <ul>
+                    <li><a href="#introduction">1. Introduction to Poker Probability</a></li>
+                    <li><a href="#essential-probabilities">2. Essential Poker Probabilities</a></li>
+                    <li><a href="#calculating-odds">3. Calculating Poker Odds</a></li>
+                    <li><a href="#expected-value">4. Expected Value (EV) in Poker</a></li>
+                    <li><a href="#quick-calculations">5. Quick Mental Calculation Methods</a></li>
+                    <li><a href="#decision-making">6. Decision Making Based on Statistics</a></li>
+                    <li><a href="#advanced-concepts">7. Advanced Concepts</a></li>
+                    <li><a href="#practical-applications">8. Practical Applications</a></li>
+                </ul>
+            </section>
+
+            <section id="introduction">
+                <h2>Introduction to Poker Probability</h2>
+                <p>
+                    Poker is a game of skill, psychology, and mathematics. Understanding the underlying probability theory gives you a significant edge over players who rely solely on intuition. This guide will provide you with the statistical foundations of poker and practical methods for making quick, accurate calculations at the table.
+                </p>
+            </section>
+
+            <section id="essential-probabilities">
+                <h2>Essential Poker Probabilities</h2>
+                
+                <h3>Starting Hand Probabilities</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Hand Type</th>
+                                <th>Probability</th>
+                                <th>Fraction</th>
+                                <th>Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Any specific pair (e.g., A♠A♥)</td>
+                                <td>1 in 221</td>
+                                <td>1/221</td>
+                                <td>0.45%</td>
+                            </tr>
+                            <tr>
+                                <td>Any pair</td>
+                                <td>6 in 221</td>
+                                <td>6/221</td>
+                                <td>2.7%</td>
+                            </tr>
+                            <tr>
+                                <td>Any specific suited cards (e.g., A♠K♠)</td>
+                                <td>4 in 1,326</td>
+                                <td>4/1,326</td>
+                                <td>0.3%</td>
+                            </tr>
+                            <tr>
+                                <td>Any specific unsuited cards (e.g., A♠K♥)</td>
+                                <td>12 in 1,326</td>
+                                <td>12/1,326</td>
+                                <td>0.9%</td>
+                            </tr>
+                            <tr>
+                                <td>A-K suited</td>
+                                <td>4 in 1,326</td>
+                                <td>4/1,326</td>
+                                <td>0.3%</td>
+                            </tr>
+                            <tr>
+                                <td>A-K unsuited</td>
+                                <td>12 in 1,326</td>
+                                <td>12/1,326</td>
+                                <td>0.9%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Post-Flop Hand Probabilities</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Scenario</th>
+                                <th>Probability</th>
+                                <th>Odds</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Flopping a set with a pocket pair</td>
+                                <td>1 in 8.5</td>
+                                <td>11.8%</td>
+                            </tr>
+                            <tr>
+                                <td>Flopping two pair with unpaired cards</td>
+                                <td>1 in 49</td>
+                                <td>2.0%</td>
+                            </tr>
+                            <tr>
+                                <td>Flopping a flush with suited cards</td>
+                                <td>1 in 118</td>
+                                <td>0.8%</td>
+                            </tr>
+                            <tr>
+                                <td>Flopping a flush draw with suited cards</td>
+                                <td>1 in 8</td>
+                                <td>12.3%</td>
+                            </tr>
+                            <tr>
+                                <td>Flopping an open-ended straight draw</td>
+                                <td>1 in 10.5</td>
+                                <td>9.5%</td>
+                            </tr>
+                            <tr>
+                                <td>Flopping a gutshot straight draw</td>
+                                <td>1 in 6.5</td>
+                                <td>15.4%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Drawing Hand Probabilities</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Draw Type</th>
+                                <th>Outs</th>
+                                <th>Turn (1 card)</th>
+                                <th>River (1 card)</th>
+                                <th>Turn & River (2 cards)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Flush draw</td>
+                                <td>9</td>
+                                <td>19.1%</td>
+                                <td>19.6%</td>
+                                <td>35.0%</td>
+                            </tr>
+                            <tr>
+                                <td>Open-ended straight draw</td>
+                                <td>8</td>
+                                <td>17.0%</td>
+                                <td>17.4%</td>
+                                <td>31.5%</td>
+                            </tr>
+                            <tr>
+                                <td>Gutshot straight draw</td>
+                                <td>4</td>
+                                <td>8.5%</td>
+                                <td>8.7%</td>
+                                <td>16.5%</td>
+                            </tr>
+                            <tr>
+                                <td>Set to full house or quads</td>
+                                <td>7</td>
+                                <td>14.9%</td>
+                                <td>15.2%</td>
+                                <td>28.3%</td>
+                            </tr>
+                            <tr>
+                                <td>Pocket pair to set</td>
+                                <td>2</td>
+                                <td>4.3%</td>
+                                <td>4.3%</td>
+                                <td>8.4%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="calculating-odds">
+                <h2>Calculating Poker Odds</h2>
+
+                <h3>Basic Odds Calculation</h3>
+                <p>The formula for calculating odds against an event:</p>
+                <div class="formula">
+                    <p>\[\text{Odds Against} = \frac{\text{Number of Unfavorable Outcomes}}{\text{Number of Favorable Outcomes}}\]</p>
+                    <p>Or</p>
+                    <p>\[\text{Odds Against} = \frac{1 - P}{P}\]</p>
+                    <p>Where P is the probability of success.</p>
+                </div>
+
+                <h3>Converting Between Probability and Odds</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>From</th>
+                                <th>Formula</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Odds to Probability</td>
+                                <td>\(P = \frac{1}{1 + \text{Odds}}\)</td>
+                                <td>3:1 odds = 1/(1+3) = 0.25 or 25%</td>
+                            </tr>
+                            <tr>
+                                <td>Probability to Odds</td>
+                                <td>\(\text{Odds} = \frac{1-P}{P}\)</td>
+                                <td>25% probability = (1-0.25)/0.25 = 3 or 3:1 odds</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>The Concept of Outs</h3>
+                <p>"Outs" are the cards that can improve your hand. Calculating your outs is the foundation of poker probability.</p>
+                <div class="example">
+                    <p><strong>Example:</strong> If you have 9♥10♥ and the flop is 7♥8♦Q♥, your outs are:</p>
+                    <ul>
+                        <li>Any heart (flush): 9 cards</li>
+                        <li>Any Jack (straight): 4 cards</li>
+                        <li>Minus overlap (J♥): -1 card</li>
+                        <li>Total outs: 12 cards</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="expected-value">
+                <h2>Expected Value (EV) in Poker</h2>
+                <p>Expected Value is the long-term average outcome of a decision. It's calculated as:</p>
+                <div class="formula">
+                    <p>\[EV = (P_{win} \times \text{Win Amount}) - (P_{lose} \times \text{Lose Amount})\]</p>
+                    <p>Where:</p>
+                    <ul>
+                        <li>\(P_{win}\) is the probability of winning</li>
+                        <li>\(P_{lose}\) is the probability of losing (equal to \(1 - P_{win}\))</li>
+                    </ul>
+                </div>
+
+                <h3>Example EV Calculation</h3>
+                <div class="example">
+                    <p><strong>Scenario:</strong> You have a flush draw (9 outs) on the flop.</p>
+                    <ul>
+                        <li>The pot is $100</li>
+                        <li>Your opponent bets $50</li>
+                        <li>You need to call $50 to continue</li>
+                    </ul>
+                    <p><strong>Calculating EV:</strong></p>
+                    <ol>
+                        <li>Your probability of hitting by the river is about 35% (using the Rule of 4)</li>
+                        <li>If you hit, you win $150 (current pot + opponent's bet)</li>
+                        <li>If you miss, you lose $50 (your call)</li>
+                    </ol>
+                    <p>\[EV = (0.35 \times \$150) - (0.65 \times \$50)\]</p>
+                    <p>\[EV = \$52.50 - \$32.50 = \$20\]</p>
+                    <p>Since the EV is positive, this is a profitable call in the long run.</p>
+                </div>
+
+                <h3>Pot Odds vs. Card Odds</h3>
+                <p>Pot odds are the ratio of the current pot size to the cost of a contemplated call.</p>
+                <div class="formula">
+                    <p>\[\text{Pot Odds} = \frac{\text{Current Pot Size}}{\text{Cost to Call}}\]</p>
+                </div>
+                <p>If your pot odds are greater than your card odds, you have a profitable call.</p>
+                <div class="example">
+                    <p><strong>Example:</strong></p>
+                    <ul>
+                        <li>The pot is $100</li>
+                        <li>Your opponent bets $25</li>
+                        <li>Pot odds = $125/$25 = 5:1</li>
+                        <li>With a flush draw (35% to hit), your card odds are about 2:1</li>
+                        <li>Since 5:1 > 2:1, this is a profitable call</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="quick-calculations">
+                <h2>Quick Mental Calculation Methods</h2>
+
+                <h3>The Rule of 2 and 4</h3>
+                <p>A simple method to estimate the probability of completing a draw:</p>
+                <ul>
+                    <li>With one card to come (turn to river): Multiply outs by 2 to get percentage</li>
+                    <li>With two cards to come (flop to river): Multiply outs by 4 to get percentage</li>
+                </ul>
+                <div class="example">
+                    <p><strong>Example:</strong> With 8 outs (open-ended straight draw)</p>
+                    <ul>
+                        <li>Turn probability: 8 × 2 = 16%</li>
+                        <li>Flop to river probability: 8 × 4 = 32%</li>
+                    </ul>
+                    <p>This is a slight overestimation but works well for quick decisions.</p>
+                </div>
+
+                <h3>The Rule of 4 and 2 (More Accurate)</h3>
+                <p>A more precise version:</p>
+                <ul>
+                    <li>Multiply outs by 4 for turn probability</li>
+                    <li>Multiply outs by 2 for river probability (if you missed on the turn)</li>
+                    <li>Add them for combined probability from flop to river</li>
+                </ul>
+                <div class="example">
+                    <p><strong>Example:</strong> 8 straight draw outs</p>
+                    <ul>
+                        <li>Turn probability: 8 × 4 = 32%</li>
+                        <li>River probability (if missed on turn): 8 × 2 = 16%</li>
+                        <li>Combined: 32% + (68% × 16%) = 32% + 10.9% = 42.9%</li>
+                    </ul>
+                    <p>The actual mathematical probability is 31.5%, so this is still an approximation.</p>
+                </div>
+
+                <h3>Quick Pot Odds Estimation</h3>
+                <p>Breaking down common bet sizes and the equity needed to call:</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Bet Size (relative to pot)</th>
+                                <th>Equity Needed to Call</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1/4 pot bet</td>
+                                <td>20%</td>
+                            </tr>
+                            <tr>
+                                <td>1/2 pot bet</td>
+                                <td>25%</td>
+                            </tr>
+                            <tr>
+                                <td>3/4 pot bet</td>
+                                <td>30%</td>
+                            </tr>
+                            <tr>
+                                <td>Full pot bet</td>
+                                <td>33%</td>
+                            </tr>
+                            <tr>
+                                <td>1.5x pot bet</td>
+                                <td>37.5%</td>
+                            </tr>
+                            <tr>
+                                <td>2x pot bet</td>
+                                <td>40%</td>
+                            </tr>
+                            <tr>
+                                <td>3x pot bet</td>
+                                <td>43%</td>
+                            </tr>
+                            <tr>
+                                <td>All-in (very large bet)</td>
+                                <td>approaches 50%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="decision-making">
+                <h2>Decision Making Based on Statistics</h2>
+
+                <h3>Key Decision Points in Poker</h3>
+                <ol>
+                    <li>
+                        <strong>Preflop decisions:</strong>
+                        <ul>
+                            <li>Use starting hand charts based on position</li>
+                            <li>Adjust based on stack sizes and opponent tendencies</li>
+                            <li>Remember that position is worth approximately 1-2 card ranks in value</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Postflop with made hands:</strong>
+                        <ul>
+                            <li>Calculate the strength of your hand relative to possible opponent holdings</li>
+                            <li>Estimate how your hand will perform against calling and raising ranges</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Postflop with drawing hands:</strong>
+                        <ul>
+                            <li>Calculate pot odds and compare to drawing odds</li>
+                            <li>Consider implied odds for future betting rounds</li>
+                            <li>Evaluate the disguised value of your hand if you hit</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h3>Bankroll Management Using Probability</h3>
+                <p>The Risk of Ruin (RoR) formula for a simplified poker model:</p>
+                <div class="formula">
+                    <p>\[\text{RoR} = \left(\frac{1-\text{edge}}{1+\text{edge}}\right)^{\text{bankroll}/\text{buyin}}\]</p>
+                    <p>Where:</p>
+                    <ul>
+                        <li>edge is your win rate as a decimal</li>
+                        <li>bankroll is your total poker money</li>
+                        <li>buyin is the amount for one game</li>
+                    </ul>
+                </div>
+                <div class="example">
+                    <p><strong>Example:</strong> With a 5% edge and 20 buyins:</p>
+                    <p>\[\text{RoR} = \left(\frac{1-0.05}{1+0.05}\right)^{20} = (0.95/1.05)^{20} \approx 0.36 = 36\%\]</p>
+                </div>
+            </section>
+
+            <section id="advanced-concepts">
+                <h2>Advanced Concepts</h2>
+
+                <h3>Equity Calculation</h3>
+                <p>Equity is your share of the pot based on your probability of winning.</p>
+                <div class="example">
+                    <p><strong>Example:</strong></p>
+                    <ul>
+                        <li>You have A♠K♠ vs. opponent's Q♥Q♦</li>
+                        <li>Your equity is approximately 43%</li>
+                        <li>If the pot is $100, your equity is $43</li>
+                    </ul>
+                </div>
+                <p>Common equity matchups to memorize:</p>
+                <ul>
+                    <li>Pair vs. Overcards: approximately 55% vs. 45%</li>
+                    <li>Top Pair vs. Flush Draw: approximately 65% vs. 35%</li>
+                    <li>Set vs. Two Pair: approximately 75% vs. 25%</li>
+                </ul>
+
+                <h3>Balancing Ranges</h3>
+                <p>A mathematically balanced range contains an optimal ratio of value bets to bluffs:</p>
+                <div class="formula">
+                    <p>\[\text{Optimal Bluff Frequency} = \frac{\text{Bet Size}}{\text{Pot Size} + \text{Bet Size}}\]</p>
+                </div>
+                <div class="example">
+                    <p><strong>Example:</strong></p>
+                    <ul>
+                        <li>You bet $75 into a $100 pot</li>
+                        <li>Optimal bluff frequency = $75/($100+$75) = 0.43 or 43%</li>
+                        <li>Your range should contain 43% bluffs and 57% value hands</li>
+                    </ul>
+                </div>
+
+                <h3>Combinatorial Analysis</h3>
+                <p>Counting hand combinations to analyze ranges:</p>
+                <ul>
+                    <li>Total possible starting hands: 1,326 combinations</li>
+                    <li>Specific pair (e.g., AA): 6 combinations</li>
+                    <li>Specific suited hand (e.g., AK suited): 4 combinations</li>
+                    <li>Specific offsuit hand (e.g., AK offsuit): 12 combinations</li>
+                </ul>
+            </section>
+
+            <section id="practical-applications">
+                <h2>Practical Applications</h2>
+
+                <h3>In-Game Calculation Example</h3>
+                <div class="example">
+                    <p><strong>Street:</strong> Flop</p>
+                    <ul>
+                        <li>Your hand: J♠10♠</li>
+                        <li>Board: K♠Q♥2♦</li>
+                        <li>Action: Opponent bets $40 into $60 pot</li>
+                    </ul>
+                    <p><strong>Quick analysis:</strong></p>
+                    <ol>
+                        <li>You have 8 outs for the straight (any Ace or 9)</li>
+                        <li>Using Rule of 4: 8 × 4 = 32% to hit by the river</li>
+                        <li>Pot odds: $100/$40 = 2.5:1</li>
+                        <li>Converting your chance to odds: (100-32)/32 = 2.1:1</li>
+                        <li>Since 2.5:1 > 2.1:1, this is a profitable call</li>
+                    </ol>
+                </div>
+
+                <h3>Tournament Strategy Adjustments</h3>
+                <p>ICM (Independent Chip Model) considerations modify EV calculations in tournaments:</p>
+                <ul>
+                    <li>Each chip gained has decreasing marginal value</li>
+                    <li>Each chip lost has increasing marginal cost</li>
+                    <li>This creates a "risk premium" on decisions</li>
+                </ul>
+                <div class="formula">
+                    <p>\[\text{ICM-adjusted EV} = \text{EV} - \text{Risk Premium}\]</p>
+                </div>
+                <p>Where Risk Premium increases as:</p>
+                <ul>
+                    <li>The tournament gets closer to payouts</li>
+                    <li>Your stack gets shorter relative to the blinds</li>
+                    <li>The pay jumps get larger</li>
+                </ul>
+                
+                <div class="mt-10 pt-6 border-t border-gray-700">
+                    <p class="text-gray-400 text-sm">
+                        Remember that poker is both art and science. These calculations provide a foundation, but factors like player psychology, table image, and specific opponent tendencies will always influence optimal decision-making. The best players combine statistical knowledge with keen observation and adaptability.
+                    </p>
+                    <p class="text-gray-400 text-sm mt-2">
+                        <em>This guide is for educational purposes only. Gambling involves risk, and you should only play with money you can afford to lose.</em>
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="mt-20 text-center">
+            <div class="w-24 h-1 mx-auto bg-gradient-to-r from-gray-700 to-gray-500 mb-8"></div>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="https://github.com/ehfurgeson" class="text-gray-400 hover:text-white transition-colors duration-300">
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/elihouston/" class="text-gray-400 hover:text-white transition-colors duration-300">
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                </a>
+            </div>
+            <p class="text-gray-400 mb-2">&copy; 2025 Eli Furgeson</p>
+        </footer>
+    </div>
+</body>
+</html>
