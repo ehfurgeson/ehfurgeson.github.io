@@ -381,12 +381,11 @@ def generate_html(args, ingredients, directions):
     
     <div class="container mx-auto px-4 sm:px-6 py-8 sm:py-12 max-w-4xl">
         <header class="mb-8 sm:mb-12 text-center">
-            <h1 class="text-4xl sm:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-100 to-gray-400">Eli Furgeson</h1>
+            <h1 class="text-4xl sm:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-100 to-gray-400">Eli</h1>
             <div class="w-24 h-1 mx-auto bg-gradient-to-r from-gray-500 to-gray-700 mb-6 sm:mb-8"></div>
             <nav class="flex flex-wrap justify-center space-x-2 sm:space-x-8 p-2 rounded-full bg-gray-800 bg-opacity-50 inline-flex">
                 <a href="../index.html" class="nav-link font-medium">Home</a>
-                <a href="../index.html#projects" class="nav-link font-medium">Projects</a>
-                <a href="../prob.html" class="nav-link font-medium">Poker Guide</a>
+                <a href="../prob.html" class="nav-link font-medium">Probability</a>
                 <a href="../recipes.html" class="nav-link font-medium">Recipes</a>
             </nav>
         </header>
