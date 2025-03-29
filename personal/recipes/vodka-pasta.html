@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Recipe status: "live" makes the recipe appear in the index, anything else hides it -->
+    <meta name="recipe-status" content="live">
+    
+    <!-- Recipe description (optional but recommended) -->
+    <meta name="description" content="Creamy, flavorful vodka sauce pasta with a hint of heat - a perfect weeknight dinner that tastes like it came from a restaurant.">
+    
+    <!-- Recipe categories (can add multiple) -->
+    <meta name="recipe-category" content="dinner">
+    <meta name="recipe-category" content="pasta">
+    <meta name="recipe-category" content="italian">
+
+    <!-- Rest of <head> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vodka Pasta - Eli Furgeson's Recipes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #121212;
+            background-image: linear-gradient(to bottom right, #121212, #1a1a2e);
+            color: #f5f5f5;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .nav-link {
+            position: relative;
+            text-decoration: none;
+            transition: color 0.3s;
+            color: #e0e0e0;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+        
+        .nav-link:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #4a5568, #a0aec0);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        
+        .content-card {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .section-title {
+            display: inline-block;
+            position: relative;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -6px;
+            left: 0;
+            background: linear-gradient(90deg, #4a5568, transparent);
+        }
+        
+        .ingredient-item {
+            display: flex;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+        
+        .ingredient-item:hover {
+            background-color: #2a2a2a;
+        }
+        
+        .instruction-step {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #333;
+        }
+        
+        .instruction-step:last-child {
+            border-bottom: none;
+        }
+        
+        .difficulty-tag {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+        }
+        
+        .difficulty-easy {
+            background-color: #2f855a;
+            color: #e0e0e0;
+        }
+        
+        .difficulty-medium {
+            background-color: #dd6b20;
+            color: #e0e0e0;
+        }
+        
+        .difficulty-hard {
+            background-color: #c53030;
+            color: #e0e0e0;
+        }
+        
+        .time-tag {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            background-color: #2c5282;
+            color: #e0e0e0;
+        }
+        
+        .notes-section {
+            background-color: #252525;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-left: 4px solid #4a5568;
+        }
+        
+        /* Subtle grain overlay */
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            pointer-events: none;
+            opacity: 0.3;
+            z-index: 100;
+        }
+        
+        /* Mobile responsiveness improvements */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 1.75rem;
+            }
+            
+            .nav-link {
+                padding: 4px 8px;
+                font-size: 0.9rem;
+            }
+            
+            .ingredient-amount {
+                font-weight: 600;
+                display: inline-block;
+                min-width: 80px;
+            }
+            
+            .instruction-step-number {
+                min-width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .content-card {
+                background: white;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .nav-link, .header, footer {
+                display: none;
+            }
+            
+            .grain {
+                display: none;
+            }
+        }
+        
+        /* Ingredient styling for better mobile display */
+        .ingredient-amount {
+            font-weight: 600;
+            color: #a0aec0;
+            display: inline-block;
+            min-width: 100px;
+        }
+        
+        /* Ingredient used in current step highlight */
+        .ingredient-used {
+            background-color: rgba(76, 81, 191, 0.2);
+            border-radius: 4px;
+            padding: 0 3px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="grain" style="background-image: url('data:image/png;base64,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');"></div>
+    
+    <div class="container mx-auto px-4 sm:px-6 py-8 sm:py-12 max-w-4xl">
+        <header class="mb-8 sm:mb-12 text-center">
+            <h1 class="text-4xl sm:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-100 to-gray-400">Eli Furgeson</h1>
+            <div class="w-24 h-1 mx-auto bg-gradient-to-r from-gray-500 to-gray-700 mb-6 sm:mb-8"></div>
+            <nav class="flex flex-wrap justify-center space-x-2 sm:space-x-8 p-2 rounded-full bg-gray-800 bg-opacity-50 inline-flex">
+                <a href="../index.html" class="nav-link font-medium">Home</a>
+                <a href="../index.html#projects" class="nav-link font-medium">Projects</a>
+                <a href="../prob.html" class="nav-link font-medium">Poker Guide</a>
+                <a href="../recipes.html" class="nav-link font-medium">Recipes</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="mb-12">
+                <div class="content-card p-4 sm:p-8">
+                    <!-- Recipe Header -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start mb-6 sm:mb-8">
+                        <h2 class="text-2xl sm:text-3xl font-semibold mb-3 sm:mb-0">Vodka Pasta</h2>
+                        <div class="flex items-center space-x-3">
+                            <span class="difficulty-tag difficulty-medium">medium</span>
+                            <button onclick="window.print()" class="text-gray-400 hover:text-white transition-colors duration-300">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Recipe Overview -->
+                    <div class="mb-8">
+                        <p class="text-gray-300 mb-4">Creamy, flavorful vodka sauce pasta with a hint of heat - a perfect weeknight dinner that tastes like it came from a restaurant.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="flex items-center text-gray-300">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span><strong>Prep:</strong> 10 mins</span>
+                            </div>
+                            <div class="flex items-center text-gray-300">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span><strong>Cook:</strong> 20 mins</span>
+                            </div>
+                            <div class="flex items-center text-gray-300">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                                <span><strong>Serves:</strong> 4</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ingredients -->
+                    <div class="mb-8">
+                        <h3 class="text-xl sm:text-2xl section-title">Ingredients</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+
+                            <div class="ingredient-item">
+                                <div class="mr-3 mt-1">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div><span class="ingredient-amount">16 oz (2 cups)</span> pasta</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="mr-3 mt-1">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div><span class="ingredient-amount">4 tbsp</span> olive oil</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="mr-3 mt-1">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div><span class="ingredient-amount">4 small cloves (diced)</span> garlic</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="mr-3 mt-1">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div><span class="ingredient-amount">2 (minced)</span> shallots</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="mr-3 mt-1">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div><span class="ingredient-amount">1 tsp</span> Italian seasoning</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="mr-3 mt-1">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div><span class="ingredient-amount">¼ cup</span> tomato paste</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="mr-3 mt-1">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div><span class="ingredient-amount">½ cup</span> heavy cream</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="mr-3 mt-1">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div><span class="ingredient-amount">1 tbsp</span> vodka</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="mr-3 mt-1">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div><span class="ingredient-amount">1 tsp</span> red pepper flakes</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="mr-3 mt-1">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div><span class="ingredient-amount">1 tbsp</span> butter</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="mr-3 mt-1">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div><span class="ingredient-amount">¼ cup (grated)</span> parmesan cheese</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="mr-3 mt-1">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div><span class="ingredient-amount">To taste (chopped)</span> basil</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="mr-3 mt-1">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div><span class="ingredient-amount">To taste</span> salt and pepper</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="mr-3 mt-1">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div><span class="ingredient-amount">1-2 tsp (optional)</span> Calabrian chile paste</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Instructions -->
+                    <div class="mb-8">
+                        <h3 class="text-xl sm:text-2xl section-title">Instructions</h3>
+                        <ol class="list-none pl-0 space-y-6">
+
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">1</div>
+                                    </div>
+                                    <div>
+                                        <p>Begin by bringing a large pot of salted water to a boil for the <span class="ingredient-used">pasta (16 oz (2 cups))</span>.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">2</div>
+                                    </div>
+                                    <div>
+                                        <p>In a large skillet over medium heat</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">3</div>
+                                    </div>
+                                    <div>
+                                        <p>melt <span class="ingredient-used">butter (1 tbsp)</span></p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">4</div>
+                                    </div>
+                                    <div>
+                                        <p>then add <span class="ingredient-used">olive oil (4 tbsp)</span> and heat until it shimmers.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">5</div>
+                                    </div>
+                                    <div>
+                                        <p>Add minced <span class="ingredient-used">garlic (4 small cloves (diced))</span> and <span class="ingredient-used">shallots (2 (minced))</span> to the pan. Sauté until fragrant and translucent</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">6</div>
+                                    </div>
+                                    <div>
+                                        <p>about 2-3 minutes.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">7</div>
+                                    </div>
+                                    <div>
+                                        <p>Stir in <span class="ingredient-used">Italian seasoning (1 tsp)</span> and cook for 30 seconds</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">8</div>
+                                    </div>
+                                    <div>
+                                        <p>then add <span class="ingredient-used">tomato paste (¼ cup)</span>. Cook</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">9</div>
+                                    </div>
+                                    <div>
+                                        <p>stirring frequently</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">10</div>
+                                    </div>
+                                    <div>
+                                        <p>for 2-3 minutes until the <span class="ingredient-used">tomato paste (¼ cup)</span> darkens slightly.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">11</div>
+                                    </div>
+                                    <div>
+                                        <p>Add <span class="ingredient-used">vodka (1 tbsp)</span> to the pan and let it simmer for about 1-2 minutes to cook off the alcohol.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">12</div>
+                                    </div>
+                                    <div>
+                                        <p>Lower the heat and slowly pour in <span class="ingredient-used">heavy cream (½ cup)</span></p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">13</div>
+                                    </div>
+                                    <div>
+                                        <p>stirring constantly. If using</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">14</div>
+                                    </div>
+                                    <div>
+                                        <p>add <span class="ingredient-used">Calabrian chile paste (1-2 tsp (optional))</span> for extra heat and depth of flavor.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">15</div>
+                                    </div>
+                                    <div>
+                                        <p>Add <span class="ingredient-used">red pepper flakes (1 tsp)</span> and <span class="ingredient-used">salt and pepper (To taste)</span> to taste. Let the sauce simmer gently for 5 minutes</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">16</div>
+                                    </div>
+                                    <div>
+                                        <p>stirring occasionally.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">17</div>
+                                    </div>
+                                    <div>
+                                        <p>Meanwhile</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">18</div>
+                                    </div>
+                                    <div>
+                                        <p>cook <span class="ingredient-used">pasta (16 oz (2 cups))</span> according to package directions until al dente. Reserve 1 cup of <span class="ingredient-used">pasta (16 oz (2 cups))</span> water before draining.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">19</div>
+                                    </div>
+                                    <div>
+                                        <p>Add the drained <span class="ingredient-used">pasta (16 oz (2 cups))</span> to the sauce</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">20</div>
+                                    </div>
+                                    <div>
+                                        <p>along with 1/4 cup of the reserved <span class="ingredient-used">pasta (16 oz (2 cups))</span> water. Toss to coat the <span class="ingredient-used">pasta (16 oz (2 cups))</span> evenly.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">21</div>
+                                    </div>
+                                    <div>
+                                        <p>Stir in grated <span class="ingredient-used">parmesan cheese (¼ cup (grated))</span> until melted and sauce is creamy. If sauce is too thick</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">22</div>
+                                    </div>
+                                    <div>
+                                        <p>add more <span class="ingredient-used">pasta (16 oz (2 cups))</span> water a little at a time.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">23</div>
+                                    </div>
+                                    <div>
+                                        <p>Serve hot</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="instruction-step">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-gray-700 rounded-full text-white font-bold instruction-step-number">24</div>
+                                    </div>
+                                    <div>
+                                        <p>garnished with freshly chopped <span class="ingredient-used">basil (To taste (chopped))</span> and additional grated parmesan if desired.</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                    
+                    <!-- Notes (Optional) -->
+                    <div class="notes-section">
+                        <h3 class="text-xl font-semibold mb-3">Notes</h3>
+                        <p>The addition of Calabrian chile paste brings a complex, fruity heat that elevates this classic dish. It's optional but highly recommended if you enjoy a bit of spice. For best results, use a shaped pasta like rigatoni or penne that can catch the sauce in its ridges and hollows. This sauce can be made ahead and refrigerated for up to 3 days—just reheat gently and add a splash of pasta water when combining with freshly cooked pasta.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="mt-12 mb-8 text-center text-gray-400">
+            <p>&copy; 2025 Eli Furgeson</p>
+        </footer>
+    </div>
+</body>
+</html>

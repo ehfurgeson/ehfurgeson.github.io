@@ -200,21 +200,468 @@
 </head>
 <body>
     <div class="grain" style="background-image: url('data:image/png;base64,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');"></div>
-    
+
     <div class="container mx-auto px-6 py-12 max-w-5xl">
         <header class="mb-16 text-center">
             <h1 class="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-100 to-gray-400">Eli</h1>
             <div class="w-24 h-1 mx-auto bg-gradient-to-r from-gray-500 to-gray-700 mb-8"></div>
             <nav class="flex justify-center space-x-8 p-2 rounded-full bg-gray-800 bg-opacity-50 inline-flex">
                 <a href="index.html" class="nav-link font-medium">Home</a>
-                <a href="index.html#projects" class="nav-link font-medium">Projects</a>
                 <a href="prob.html" class="nav-link font-medium">Probability</a>
                 <a href="recipes.html" class="nav-link font-medium">Recipes</a>
             </nav>
         </header>
 
         <main class="content-card p-8">
-            <h1>I love probability and think that poker is a great example of how fun it can be, so this is a basic probability guide to statistics, expected value & some quick calculations for poker</h1>
+            <h1 class="text-3xl font-bold mb-6">Probability</h1>
+            <p class="mb-4">
+                These are some fun applications of statistics and probability.
+                The first one is primarily what I study, and the second one is just something interesting.
+            </p>
+            <a href="#gene" class="text-gray-400 hover:text-white transition-colors duration-300">Quantitative Genomics</a>
+            <br>
+            <a href="#poker" class="text-gray-400 hover:text-white transition-colors duration-300">Poker</a>
+        </main>
+        <br>
+        <main id="gene" class="content-card p-8">
+            <h1>Introduction to Quantitative Genomics</h1>
+            <br>
+            <br>
+            <section id="table-of-contents" class="mb-8">
+                <h2>Table of Contents</h2>
+                <ul>
+                    <li><a href="#introduction">1. Introduction to Quantitative Genomics</a></li>
+                    <li><a href="#essential-concepts">2. Essential Genomic Concepts</a></li>
+                    <li><a href="#gwas">3. Genome-Wide Association Studies (GWAS)</a></li>
+                    <li><a href="#statistical-methods">4. Statistical Methods in Genomics</a></li>
+                    <li><a href="#quick-calculations">5. Key Calculations and Metrics</a></li>
+                    <li><a href="#practical-applications">6. Practical Applications</a></li>
+                    <li><a href="#advanced-concepts">7. Advanced Concepts</a></li>
+                    <li><a href="#future-directions">8. Future Directions in Quantitative Genomics</a></li>
+                </ul>
+            </section>
+        
+            <section id="introduction">
+                <h2>Introduction to Quantitative Genomics</h2>
+                <p>
+                    Quantitative genomics combines molecular biology, statistics, and computational methods to understand how genetic variations influence traits and diseases. Unlike traditional genetics that often focuses on single genes, quantitative genomics examines how multiple genetic factors interact with environmental influences to shape complex traits. This guide provides a foundation for understanding the statistical principles and methodologies that drive modern genomic research.
+                </p>
+            </section>
+        
+            <section id="essential-concepts">
+                <h2>Essential Genomic Concepts</h2>
+                
+                <h3>DNA, Genes, and Variants</h3>
+                <div class="concepts-container">
+                    <ul>
+                        <li><strong>DNA</strong>: Double-helix molecule composed of nucleotides (A, T, G, C)</li>
+                        <li><strong>Genes</strong>: Sections of DNA that code for proteins</li>
+                        <li><strong>Single Nucleotide Polymorphisms (SNPs)</strong>: Single base-pair variations in DNA</li>
+                        <li><strong>Alleles</strong>: Alternative forms of a gene or genetic locus</li>
+                        <li><strong>Genotype</strong>: The genetic makeup of an individual</li>
+                        <li><strong>Phenotype</strong>: Observable traits resulting from genotype and environment</li>
+                    </ul>
+                </div>
+        
+                <h3>Genetic Variation Statistics</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type of Variation</th>
+                                <th>Frequency in Human Genome</th>
+                                <th>Typical Size</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SNPs</td>
+                                <td>1 per 300 base pairs</td>
+                                <td>1 base pair</td>
+                            </tr>
+                            <tr>
+                                <td>Insertions/Deletions (Indels)</td>
+                                <td>~1 million per genome</td>
+                                <td>1-50 base pairs</td>
+                            </tr>
+                            <tr>
+                                <td>Copy Number Variations (CNVs)</td>
+                                <td>~100-1000 per genome</td>
+                                <td>1,000+ base pairs</td>
+                            </tr>
+                            <tr>
+                                <td>Structural Variations</td>
+                                <td>~20-50 per genome</td>
+                                <td>50,000+ base pairs</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        
+                <h3>Hardy-Weinberg Equilibrium (HWE)</h3>
+                <p>A fundamental principle in population genetics that describes the relationship between allele and genotype frequencies in a population.</p>
+                <div class="formula">
+                    <p>\[p^2 + 2pq + q^2 = 1\]</p>
+                    <p>Where:</p>
+                    <ul>
+                        <li>\(p\) = frequency of the dominant allele</li>
+                        <li>\(q\) = frequency of the recessive allele</li>
+                        <li>\(p^2\) = frequency of homozygous dominant genotype</li>
+                        <li>\(2pq\) = frequency of heterozygous genotype</li>
+                        <li>\(q^2\) = frequency of homozygous recessive genotype</li>
+                    </ul>
+                </div>
+                <div class="example">
+                    <p><strong>Example:</strong> If allele A has frequency 0.7 and allele a has frequency 0.3 in a population:</p>
+                    <ul>
+                        <li>Genotype AA frequency = \(0.7^2 = 0.49\) (49%)</li>
+                        <li>Genotype Aa frequency = \(2 \times 0.7 \times 0.3 = 0.42\) (42%)</li>
+                        <li>Genotype aa frequency = \(0.3^2 = 0.09\) (9%)</li>
+                    </ul>
+                </div>
+            </section>
+        
+            <section id="gwas">
+                <h2>Genome-Wide Association Studies (GWAS)</h2>
+                
+                <h3>Basic GWAS Methodology</h3>
+                <p>GWAS examines associations between genetic variants (typically SNPs) across the genome and specific traits or diseases.</p>
+                <div class="methodology-steps">
+                    <ol>
+                        <li>Collect DNA samples from case (affected) and control (unaffected) groups</li>
+                        <li>Genotype hundreds of thousands to millions of SNPs in each individual</li>
+                        <li>Compare allele frequencies between cases and controls for each SNP</li>
+                        <li>Apply statistical tests to identify significant associations</li>
+                        <li>Account for multiple testing (many SNPs tested simultaneously)</li>
+                    </ol>
+                </div>
+        
+                <h3>Statistical Power in GWAS</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Effect Size (Odds Ratio)</th>
+                                <th>Sample Size Needed (80% Power)</th>
+                                <th>Minor Allele Frequency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1.1 (small)</td>
+                                <td>~10,000-20,000 cases/controls</td>
+                                <td>0.2</td>
+                            </tr>
+                            <tr>
+                                <td>1.3 (moderate)</td>
+                                <td>~2,000-5,000 cases/controls</td>
+                                <td>0.2</td>
+                            </tr>
+                            <tr>
+                                <td>1.5 (large)</td>
+                                <td>~1,000-2,000 cases/controls</td>
+                                <td>0.2</td>
+                            </tr>
+                            <tr>
+                                <td>2.0 (very large)</td>
+                                <td>~500-1,000 cases/controls</td>
+                                <td>0.2</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        
+                <h3>Manhattan Plots</h3>
+                <p>A visualization tool in GWAS showing the statistical significance of associations across the genome.</p>
+                <ul>
+                    <li>X-axis: Genomic position (chromosomes)</li>
+                    <li>Y-axis: Negative logarithm of p-value (-log10(p))</li>
+                    <li>Higher points indicate stronger statistical evidence for association</li>
+                    <li>Genome-wide significance threshold typically set at p < 5 × 10^-8</li>
+                </ul>
+            </section>
+        
+            <section id="statistical-methods">
+                <h2>Statistical Methods in Genomics</h2>
+        
+                <h3>Association Testing</h3>
+                <p>Common statistical tests used in genomic association studies:</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test</th>
+                                <th>Application</th>
+                                <th>Formula/Method</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Chi-Square Test</td>
+                                <td>Case-control studies</td>
+                                <td>\[\chi^2 = \sum \frac{(O-E)^2}{E}\]</td>
+                            </tr>
+                            <tr>
+                                <td>Logistic Regression</td>
+                                <td>Binary outcomes with covariates</td>
+                                <td>\[\ln\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X_1 + ... + \beta_n X_n\]</td>
+                            </tr>
+                            <tr>
+                                <td>Linear Regression</td>
+                                <td>Quantitative traits</td>
+                                <td>\[Y = \beta_0 + \beta_1 X_1 + ... + \beta_n X_n + \epsilon\]</td>
+                            </tr>
+                            <tr>
+                                <td>Mixed Linear Models</td>
+                                <td>Accounting for relatedness/population structure</td>
+                                <td>\[Y = X\beta + Zu + \epsilon\]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        
+                <h3>Multiple Testing Correction</h3>
+                <p>Methods to control false positives when testing millions of variants:</p>
+                <ul>
+                    <li><strong>Bonferroni correction</strong>: \(\alpha_{adjusted} = \frac{\alpha}{n}\) where n is the number of tests</li>
+                    <li><strong>False Discovery Rate (FDR)</strong>: Controls the expected proportion of false positives</li>
+                    <li><strong>Permutation testing</strong>: Empirical estimation of significance thresholds</li>
+                </ul>
+                <div class="example">
+                    <p><strong>Example:</strong> Testing 1 million SNPs with desired α = 0.05</p>
+                    <ul>
+                        <li>Bonferroni-corrected threshold: \(0.05 / 1,000,000 = 5 \times 10^{-8}\)</li>
+                        <li>This is the standard genome-wide significance threshold in GWAS</li>
+                    </ul>
+                </div>
+            </section>
+        
+            <section id="quick-calculations">
+                <h2>Key Calculations and Metrics</h2>
+        
+                <h3>Heritability</h3>
+                <p>The proportion of phenotypic variance attributed to genetic factors:</p>
+                <div class="formula">
+                    <p>\[h^2 = \frac{\sigma^2_G}{\sigma^2_P} = \frac{\sigma^2_G}{\sigma^2_G + \sigma^2_E}\]</p>
+                    <p>Where:</p>
+                    <ul>
+                        <li>\(h^2\) = heritability</li>
+                        <li>\(\sigma^2_G\) = genetic variance</li>
+                        <li>\(\sigma^2_P\) = phenotypic variance</li>
+                        <li>\(\sigma^2_E\) = environmental variance</li>
+                    </ul>
+                </div>
+        
+                <h3>SNP-Based Heritability</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Trait Type</th>
+                                <th>Typical SNP-Based Heritability Range</th>
+                                <th>Example Traits</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Highly heritable</td>
+                                <td>70-90%</td>
+                                <td>Height, eye color</td>
+                            </tr>
+                            <tr>
+                                <td>Moderately heritable</td>
+                                <td>40-70%</td>
+                                <td>BMI, blood pressure</td>
+                            </tr>
+                            <tr>
+                                <td>Low heritability</td>
+                                <td>10-40%</td>
+                                <td>Many complex diseases</td>
+                            </tr>
+                            <tr>
+                                <td>Very low heritability</td>
+                                <td><10%</td>
+                                <td>Certain environmental diseases</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        
+                <h3>Effect Size Metrics</h3>
+                <p>Common measures of genetic effect magnitude:</p>
+                <ul>
+                    <li><strong>Odds Ratio (OR)</strong>: Ratio of odds of disease given exposure to odds of disease given no exposure</li>
+                    <li><strong>Relative Risk (RR)</strong>: Ratio of risk of disease in exposed group to risk in unexposed group</li>
+                    <li><strong>Beta (β)</strong>: Linear regression coefficient indicating the change in trait per allele</li>
+                    <li><strong>Variance Explained</strong>: Proportion of phenotypic variance explained by a variant</li>
+                </ul>
+                <div class="formula">
+                    <p>Variance explained by a single SNP:</p>
+                    <p>\[V_{explained} = \frac{2 \times MAF \times (1-MAF) \times \beta^2}{Var(phenotype)}\]</p>
+                    <p>Where:</p>
+                    <ul>
+                        <li>MAF = Minor Allele Frequency</li>
+                        <li>β = Effect size</li>
+                    </ul>
+                </div>
+            </section>
+        
+            <section id="practical-applications">
+                <h2>Practical Applications</h2>
+        
+                <h3>Polygenic Risk Scores (PRS)</h3>
+                <p>A method to predict genetic risk for complex traits by aggregating effects across many variants:</p>
+                <div class="formula">
+                    <p>\[PRS = \sum_{i=1}^{n} \beta_i \times SNP_i\]</p>
+                    <p>Where:</p>
+                    <ul>
+                        <li>\(\beta_i\) = effect size of SNP i</li>
+                        <li>\(SNP_i\) = genotype of SNP i (typically coded as 0, 1, or 2 alleles)</li>
+                    </ul>
+                </div>
+                <div class="example">
+                    <p><strong>Example:</strong> Calculating a simple PRS for three SNPs:</p>
+                    <ul>
+                        <li>SNP1: Effect size (β) = 0.05, Genotype = 1 → 0.05 × 1 = 0.05</li>
+                        <li>SNP2: Effect size (β) = 0.12, Genotype = 2 → 0.12 × 2 = 0.24</li>
+                        <li>SNP3: Effect size (β) = 0.03, Genotype = 0 → 0.03 × 0 = 0</li>
+                        <li>PRS = 0.05 + 0.24 + 0 = 0.29</li>
+                    </ul>
+                </div>
+        
+                <h3>Genomic Prediction Accuracy</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Formula</th>
+                                <th>Interpretation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Area Under the ROC Curve (AUC)</td>
+                                <td>Plot of sensitivity vs. 1-specificity</td>
+                                <td>0.5 = random prediction, 1.0 = perfect prediction</td>
+                            </tr>
+                            <tr>
+                                <td>R² (Coefficient of Determination)</td>
+                                <td>\[R^2 = 1 - \frac{SS_{res}}{SS_{tot}}\]</td>
+                                <td>Proportion of variance explained by the model</td>
+                            </tr>
+                            <tr>
+                                <td>Pearson Correlation</td>
+                                <td>\[r = \frac{cov(X,Y)}{\sigma_X \sigma_Y}\]</td>
+                                <td>Linear correlation between predicted and observed values</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        
+            <section id="advanced-concepts">
+                <h2>Advanced Concepts</h2>
+        
+                <h3>Linkage Disequilibrium (LD)</h3>
+                <p>The non-random association of alleles at different loci, typically measured as r² or D':</p>
+                <div class="formula">
+                    <p>\[D = P_{AB} - P_A \times P_B\]</p>
+                    <p>\[D' = \frac{D}{D_{max}}\]</p>
+                    <p>\[r^2 = \frac{D^2}{P_A \times P_B \times (1-P_A) \times (1-P_B)}\]</p>
+                    <p>Where:</p>
+                    <ul>
+                        <li>\(P_{AB}\) = frequency of haplotype AB</li>
+                        <li>\(P_A\) = frequency of allele A</li>
+                        <li>\(P_B\) = frequency of allele B</li>
+                    </ul>
+                </div>
+        
+                <h3>Genetic Architecture Models</h3>
+                <p>Different models of how genetic variants contribute to traits:</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Description</th>
+                                <th>Examples</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Common Disease-Common Variant</td>
+                                <td>Common variants (MAF > 5%) with small effects</td>
+                                <td>Height, BMI</td>
+                            </tr>
+                            <tr>
+                                <td>Common Disease-Rare Variant</td>
+                                <td>Many rare variants with larger effects</td>
+                                <td>Autism, schizophrenia</td>
+                            </tr>
+                            <tr>
+                                <td>Infinitesimal Model</td>
+                                <td>Many variants with tiny effects</td>
+                                <td>Height, cognitive ability</td>
+                            </tr>
+                            <tr>
+                                <td>Oligogenic Model</td>
+                                <td>Few variants with moderate to large effects</td>
+                                <td>Some Mendelian disorders with reduced penetrance</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        
+                <h3>Genome-Wide Complex Trait Analysis (GCTA)</h3>
+                <p>A method to estimate the proportion of phenotypic variance explained by all SNPs:</p>
+                <div class="formula">
+                    <p>\[y = X\beta + g + \epsilon\]</p>
+                    <p>Where:</p>
+                    <ul>
+                        <li>\(y\) = phenotype vector</li>
+                        <li>\(X\) = matrix of fixed effects</li>
+                        <li>\(\beta\) = vector of fixed effects</li>
+                        <li>\(g\) = vector of random genetic effects with \(g \sim N(0, G\sigma^2_g)\)</li>
+                        <li>\(G\) = genetic relationship matrix</li>
+                        <li>\(\epsilon\) = vector of residual effects</li>
+                    </ul>
+                </div>
+            </section>
+        
+            <section id="future-directions">
+                <h2>Future Directions in Quantitative Genomics</h2>
+        
+                <h3>Emerging Areas</h3>
+                <ul>
+                    <li><strong>Multi-omics Integration</strong>: Combining genomics with transcriptomics, proteomics, and metabolomics</li>
+                    <li><strong>Functional Genomics</strong>: Moving from association to causation</li>
+                    <li><strong>Pharmacogenomics</strong>: Using genetic information to optimize drug response</li>
+                    <li><strong>Gene-Environment Interactions</strong>: Understanding how genetic effects are modulated by environment</li>
+                    <li><strong>Machine Learning Applications</strong>: Leveraging AI for complex genomic pattern recognition</li>
+                </ul>
+        
+                <h3>Methodological Advances</h3>
+                <ul>
+                    <li><strong>Bayesian Methods</strong>: Incorporating prior knowledge into genomic analyses</li>
+                    <li><strong>Network-Based Approaches</strong>: Analyzing genes in biological pathways and networks</li>
+                    <li><strong>Causal Inference</strong>: Mendelian randomization and other methods for causal discovery</li>
+                    <li><strong>Single-Cell Analytics</strong>: Quantitative methods for single-cell genomic data</li>
+                </ul>
+                
+                <div class="mt-10 pt-6 border-t border-gray-700">
+                    <p class="text-gray-400 text-sm">
+                        Quantitative genomics is a rapidly evolving field at the intersection of biology, statistics, and computer science. While the mathematical foundations presented here remain relevant, new methodologies and applications continue to emerge as technology advances. The transition from discovering genetic associations to understanding their functional implications represents the next frontier in genomic research.
+                    </p>
+                    <p class="text-gray-400 text-sm mt-2">
+                        <em>This guide is intended for educational purposes only. For medical or clinical applications of genomics, please consult with qualified healthcare professionals.</em>
+                    </p>
+                </div>
+            </section>
+        </main>
+        <br>
+        <main id="poker" class="content-card p-8">
+            <h1>Basic poker probability and calculations</h1>
             <br>
             <br>
             <section id="table-of-contents" class="mb-8">

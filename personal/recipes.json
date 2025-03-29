@@ -1,13 +1,14 @@
 [
   {
-    "id": "recipes_template",
-    "title": "[RECIPE_TITLE] - Eli Furgeson's Recipes",
-    "description": "Fluffy, golden pancakes that are perfect for a weekend breakfast.",
+    "id": "crepes",
+    "title": "Crepes - Eli Furgeson's Recipes",
+    "description": "Light, delicate crepes perfect for breakfast or dessert. Fill them with sweet or savory fillings for an impressive yet simple dish.",
     "difficulty": "tag",
     "time": "30 mins",
     "servings": 4,
     "categories": [
       "breakfast",
+      "dessert",
       "vegetarian"
     ],
     "display": true
@@ -21,5 +22,19 @@
     "servings": 0,
     "categories": [],
     "display": false
+  },
+  {
+    "id": "vodka-pasta",
+    "title": "Vodka Pasta",
+    "description": "Creamy, flavorful vodka sauce pasta with a hint of heat - a perfect weeknight dinner that tastes like it came from a restaurant.",
+    "difficulty": "medium",
+    "time": "30 mins",
+    "servings": 4,
+    "categories": [
+      "dinner",
+      "pasta",
+      "italian"
+    ],
+    "display": true
   }
 ]
