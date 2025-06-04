@@ -19,8 +19,8 @@ from pathlib import Path
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Synchronize recipe HTML files with recipes.json")
-    parser.add_argument("--recipes-dir", default="recipes", help="Directory containing recipe HTML files")
-    parser.add_argument("--json-file", default="recipes.json", help="Path to recipes.json file")
+    parser.add_argument("--recipes-dir", default="recipes", help="Directory containing recipe HTML files (relative to script location)")
+    parser.add_argument("--json-file", default="recipes.json", help="Path to recipes.json file (relative to script location)")
     parser.add_argument("--verbose", action="store_true", help="Print detailed information")
     parser.add_argument("--dry-run", action="store_true", help="Don't modify files, just show what would be done")
     return parser.parse_args()
@@ -138,7 +138,7 @@ def save_recipes_json(recipes, json_path, dry_run=False):
         return
     
     # Create directory if it doesn't exist
-    os.makedirs(os.path.dirname(os.path.abspath(json_path)), exist_ok=True)
+    json_path.parent.mkdir(parents=True, exist_ok=True)
     
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(recipes, f, indent=2)
@@ -146,11 +146,15 @@ def save_recipes_json(recipes, json_path, dry_run=False):
 def main():
     args = parse_args()
     
-    # Get paths
-    recipes_dir = Path(args.recipes_dir)
-    json_path = Path(args.json_file)
+    # Get the directory where this script is located
+    script_dir = Path(__file__).parent.absolute()
+    
+    # Resolve paths relative to the script location
+    recipes_dir = script_dir / args.recipes_dir
+    json_path = script_dir / args.json_file
     
     if args.verbose:
+        print(f"Script directory: {script_dir}")
         print(f"Scanning directory: {recipes_dir}")
         print(f"JSON file: {json_path}")
     

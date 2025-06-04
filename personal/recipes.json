@@ -14,20 +14,10 @@
     "display": true
   },
   {
-    "id": "recipe-template",
-    "title": "Recipe Template",
-    "description": "Template for adding new recipes.",
-    "difficulty": "easy",
-    "time": "0 mins",
-    "servings": 0,
-    "categories": [],
-    "display": false
-  },
-  {
     "id": "vodka-pasta",
-    "title": "Vodka Pasta",
+    "title": "Vodka Pasta - Eli Furgeson's Recipes",
     "description": "Creamy, flavorful vodka sauce pasta with a hint of heat - a perfect weeknight dinner that tastes like it came from a restaurant.",
-    "difficulty": "medium",
+    "difficulty": "tag",
     "time": "30 mins",
     "servings": 4,
     "categories": [
@@ -36,5 +26,15 @@
       "italian"
     ],
     "display": true
+  },
+  {
+    "id": "recipe-template",
+    "title": "Recipe Template",
+    "description": "Template for adding new recipes.",
+    "difficulty": "easy",
+    "time": "0 mins",
+    "servings": 0,
+    "categories": [],
+    "display": false
   }
 ]

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Probability</title>
+    <title>Fun Math - Eli Furgeson</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js"></script>
@@ -87,13 +87,6 @@
         tr:nth-child(odd) {
             background-color: #1e1e1e;
         }
-        
-        code {
-            background-color: #333;
-            padding: 0.1rem 0.3rem;
-            border-radius: 3px;
-            font-family: monospace;
-        }
 
         h1 {
             font-size: 2.25rem;
@@ -139,50 +132,12 @@
             margin-bottom: 0.5rem;
         }
 
-        .formula {
-            background-color: #252525;
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-            overflow-x: auto;
-            border-left: 4px solid #4a5568;
-        }
-
         .example {
             background-color: #252525;
             padding: 1rem;
             border-radius: 8px;
             margin: 1rem 0;
             border-left: 4px solid #4a5568;
-        }
-
-        #table-of-contents {
-            background-color: #252525;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-        }
-
-        #table-of-contents ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        #table-of-contents ul ul {
-            padding-left: 1.5rem;
-        }
-
-        #table-of-contents a {
-            color: #a0aec0;
-            text-decoration: none;
-            transition: color 0.2s;
-            display: inline-block;
-            padding: 0.25rem 0;
-        }
-
-        #table-of-contents a:hover {
-            color: #f5f5f5;
-            text-decoration: underline;
         }
         
         /* Subtle grain overlay */
@@ -207,957 +162,109 @@
             <div class="w-24 h-1 mx-auto bg-gradient-to-r from-gray-500 to-gray-700 mb-8"></div>
             <nav class="flex justify-center space-x-8 p-2 rounded-full bg-gray-800 bg-opacity-50 inline-flex">
                 <a href="index.html" class="nav-link font-medium">Home</a>
-                <a href="prob.html" class="nav-link font-medium">Probability</a>
+                <a href="#" class="nav-link font-medium">Fun Math</a>
                 <a href="recipes.html" class="nav-link font-medium">Recipes</a>
             </nav>
         </header>
 
         <main class="content-card p-8">
-            <h1 class="text-3xl font-bold mb-6">Probability</h1>
+            <h1 class="text-3xl font-bold mb-6">Fun Math</h1>
             <p class="mb-4">
-                These are some fun applications of statistics and probability.
-                The first one is primarily what I study, and the second one is just something interesting.
+                These are some cool applications of math that I find interesting. <br>
             </p>
             <a href="#gene" class="text-gray-400 hover:text-white transition-colors duration-300">Quantitative Genomics</a>
             <br>
             <a href="#poker" class="text-gray-400 hover:text-white transition-colors duration-300">Poker</a>
         </main>
+        
         <br>
+        
         <main id="gene" class="content-card p-8">
-            <h1>Introduction to Quantitative Genomics</h1>
+            <h1>Understanding Genome-Wide Association Studies</h1>
             <br>
             <br>
-            <section id="table-of-contents" class="mb-8">
-                <h2>Table of Contents</h2>
-                <ul>
-                    <li><a href="#introduction">1. Introduction to Quantitative Genomics</a></li>
-                    <li><a href="#essential-concepts">2. Essential Genomic Concepts</a></li>
-                    <li><a href="#gwas">3. Genome-Wide Association Studies (GWAS)</a></li>
-                    <li><a href="#statistical-methods">4. Statistical Methods in Genomics</a></li>
-                    <li><a href="#quick-calculations">5. Key Calculations and Metrics</a></li>
-                    <li><a href="#practical-applications">6. Practical Applications</a></li>
-                    <li><a href="#advanced-concepts">7. Advanced Concepts</a></li>
-                    <li><a href="#future-directions">8. Future Directions in Quantitative Genomics</a></li>
-                </ul>
-            </section>
-        
-            <section id="introduction">
-                <h2>Introduction to Quantitative Genomics</h2>
-                <p>
-                    Quantitative genomics combines molecular biology, statistics, and computational methods to understand how genetic variations influence traits and diseases. Unlike traditional genetics that often focuses on single genes, quantitative genomics examines how multiple genetic factors interact with environmental influences to shape complex traits. This guide provides a foundation for understanding the statistical principles and methodologies that drive modern genomic research.
-                </p>
-            </section>
-        
-            <section id="essential-concepts">
-                <h2>Essential Genomic Concepts</h2>
-                
-                <h3>DNA, Genes, and Variants</h3>
-                <div class="concepts-container">
-                    <ul>
-                        <li><strong>DNA</strong>: Double-helix molecule composed of nucleotides (A, T, G, C)</li>
-                        <li><strong>Genes</strong>: Sections of DNA that code for proteins</li>
-                        <li><strong>Single Nucleotide Polymorphisms (SNPs)</strong>: Single base-pair variations in DNA</li>
-                        <li><strong>Alleles</strong>: Alternative forms of a gene or genetic locus</li>
-                        <li><strong>Genotype</strong>: The genetic makeup of an individual</li>
-                        <li><strong>Phenotype</strong>: Observable traits resulting from genotype and environment</li>
-                    </ul>
-                </div>
-        
-                <h3>Genetic Variation Statistics</h3>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Type of Variation</th>
-                                <th>Frequency in Human Genome</th>
-                                <th>Typical Size</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>SNPs</td>
-                                <td>1 per 300 base pairs</td>
-                                <td>1 base pair</td>
-                            </tr>
-                            <tr>
-                                <td>Insertions/Deletions (Indels)</td>
-                                <td>~1 million per genome</td>
-                                <td>1-50 base pairs</td>
-                            </tr>
-                            <tr>
-                                <td>Copy Number Variations (CNVs)</td>
-                                <td>~100-1000 per genome</td>
-                                <td>1,000+ base pairs</td>
-                            </tr>
-                            <tr>
-                                <td>Structural Variations</td>
-                                <td>~20-50 per genome</td>
-                                <td>50,000+ base pairs</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-        
-                <h3>Hardy-Weinberg Equilibrium (HWE)</h3>
-                <p>A fundamental principle in population genetics that describes the relationship between allele and genotype frequencies in a population.</p>
-                <div class="formula">
-                    <p>\[p^2 + 2pq + q^2 = 1\]</p>
-                    <p>Where:</p>
-                    <ul>
-                        <li>\(p\) = frequency of the dominant allele</li>
-                        <li>\(q\) = frequency of the recessive allele</li>
-                        <li>\(p^2\) = frequency of homozygous dominant genotype</li>
-                        <li>\(2pq\) = frequency of heterozygous genotype</li>
-                        <li>\(q^2\) = frequency of homozygous recessive genotype</li>
-                    </ul>
-                </div>
-                <div class="example">
-                    <p><strong>Example:</strong> If allele A has frequency 0.7 and allele a has frequency 0.3 in a population:</p>
-                    <ul>
-                        <li>Genotype AA frequency = \(0.7^2 = 0.49\) (49%)</li>
-                        <li>Genotype Aa frequency = \(2 \times 0.7 \times 0.3 = 0.42\) (42%)</li>
-                        <li>Genotype aa frequency = \(0.3^2 = 0.09\) (9%)</li>
-                    </ul>
-                </div>
-            </section>
-        
-            <section id="gwas">
-                <h2>Genome-Wide Association Studies (GWAS)</h2>
-                
-                <h3>Basic GWAS Methodology</h3>
-                <p>GWAS examines associations between genetic variants (typically SNPs) across the genome and specific traits or diseases.</p>
-                <div class="methodology-steps">
-                    <ol>
-                        <li>Collect DNA samples from case (affected) and control (unaffected) groups</li>
-                        <li>Genotype hundreds of thousands to millions of SNPs in each individual</li>
-                        <li>Compare allele frequencies between cases and controls for each SNP</li>
-                        <li>Apply statistical tests to identify significant associations</li>
-                        <li>Account for multiple testing (many SNPs tested simultaneously)</li>
-                    </ol>
-                </div>
-        
-                <h3>Statistical Power in GWAS</h3>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Effect Size (Odds Ratio)</th>
-                                <th>Sample Size Needed (80% Power)</th>
-                                <th>Minor Allele Frequency</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1.1 (small)</td>
-                                <td>~10,000-20,000 cases/controls</td>
-                                <td>0.2</td>
-                            </tr>
-                            <tr>
-                                <td>1.3 (moderate)</td>
-                                <td>~2,000-5,000 cases/controls</td>
-                                <td>0.2</td>
-                            </tr>
-                            <tr>
-                                <td>1.5 (large)</td>
-                                <td>~1,000-2,000 cases/controls</td>
-                                <td>0.2</td>
-                            </tr>
-                            <tr>
-                                <td>2.0 (very large)</td>
-                                <td>~500-1,000 cases/controls</td>
-                                <td>0.2</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-        
-                <h3>Manhattan Plots</h3>
-                <p>A visualization tool in GWAS showing the statistical significance of associations across the genome.</p>
-                <ul>
-                    <li>X-axis: Genomic position (chromosomes)</li>
-                    <li>Y-axis: Negative logarithm of p-value (-log10(p))</li>
-                    <li>Higher points indicate stronger statistical evidence for association</li>
-                    <li>Genome-wide significance threshold typically set at p < 5 × 10^-8</li>
-                </ul>
-            </section>
-        
-            <section id="statistical-methods">
-                <h2>Statistical Methods in Genomics</h2>
-        
-                <h3>Association Testing</h3>
-                <p>Common statistical tests used in genomic association studies:</p>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Test</th>
-                                <th>Application</th>
-                                <th>Formula/Method</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Chi-Square Test</td>
-                                <td>Case-control studies</td>
-                                <td>\[\chi^2 = \sum \frac{(O-E)^2}{E}\]</td>
-                            </tr>
-                            <tr>
-                                <td>Logistic Regression</td>
-                                <td>Binary outcomes with covariates</td>
-                                <td>\[\ln\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X_1 + ... + \beta_n X_n\]</td>
-                            </tr>
-                            <tr>
-                                <td>Linear Regression</td>
-                                <td>Quantitative traits</td>
-                                <td>\[Y = \beta_0 + \beta_1 X_1 + ... + \beta_n X_n + \epsilon\]</td>
-                            </tr>
-                            <tr>
-                                <td>Mixed Linear Models</td>
-                                <td>Accounting for relatedness/population structure</td>
-                                <td>\[Y = X\beta + Zu + \epsilon\]</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-        
-                <h3>Multiple Testing Correction</h3>
-                <p>Methods to control false positives when testing millions of variants:</p>
-                <ul>
-                    <li><strong>Bonferroni correction</strong>: \(\alpha_{adjusted} = \frac{\alpha}{n}\) where n is the number of tests</li>
-                    <li><strong>False Discovery Rate (FDR)</strong>: Controls the expected proportion of false positives</li>
-                    <li><strong>Permutation testing</strong>: Empirical estimation of significance thresholds</li>
-                </ul>
-                <div class="example">
-                    <p><strong>Example:</strong> Testing 1 million SNPs with desired α = 0.05</p>
-                    <ul>
-                        <li>Bonferroni-corrected threshold: \(0.05 / 1,000,000 = 5 \times 10^{-8}\)</li>
-                        <li>This is the standard genome-wide significance threshold in GWAS</li>
-                    </ul>
-                </div>
-            </section>
-        
-            <section id="quick-calculations">
-                <h2>Key Calculations and Metrics</h2>
-        
-                <h3>Heritability</h3>
-                <p>The proportion of phenotypic variance attributed to genetic factors:</p>
-                <div class="formula">
-                    <p>\[h^2 = \frac{\sigma^2_G}{\sigma^2_P} = \frac{\sigma^2_G}{\sigma^2_G + \sigma^2_E}\]</p>
-                    <p>Where:</p>
-                    <ul>
-                        <li>\(h^2\) = heritability</li>
-                        <li>\(\sigma^2_G\) = genetic variance</li>
-                        <li>\(\sigma^2_P\) = phenotypic variance</li>
-                        <li>\(\sigma^2_E\) = environmental variance</li>
-                    </ul>
-                </div>
-        
-                <h3>SNP-Based Heritability</h3>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Trait Type</th>
-                                <th>Typical SNP-Based Heritability Range</th>
-                                <th>Example Traits</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Highly heritable</td>
-                                <td>70-90%</td>
-                                <td>Height, eye color</td>
-                            </tr>
-                            <tr>
-                                <td>Moderately heritable</td>
-                                <td>40-70%</td>
-                                <td>BMI, blood pressure</td>
-                            </tr>
-                            <tr>
-                                <td>Low heritability</td>
-                                <td>10-40%</td>
-                                <td>Many complex diseases</td>
-                            </tr>
-                            <tr>
-                                <td>Very low heritability</td>
-                                <td><10%</td>
-                                <td>Certain environmental diseases</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-        
-                <h3>Effect Size Metrics</h3>
-                <p>Common measures of genetic effect magnitude:</p>
-                <ul>
-                    <li><strong>Odds Ratio (OR)</strong>: Ratio of odds of disease given exposure to odds of disease given no exposure</li>
-                    <li><strong>Relative Risk (RR)</strong>: Ratio of risk of disease in exposed group to risk in unexposed group</li>
-                    <li><strong>Beta (β)</strong>: Linear regression coefficient indicating the change in trait per allele</li>
-                    <li><strong>Variance Explained</strong>: Proportion of phenotypic variance explained by a variant</li>
-                </ul>
-                <div class="formula">
-                    <p>Variance explained by a single SNP:</p>
-                    <p>\[V_{explained} = \frac{2 \times MAF \times (1-MAF) \times \beta^2}{Var(phenotype)}\]</p>
-                    <p>Where:</p>
-                    <ul>
-                        <li>MAF = Minor Allele Frequency</li>
-                        <li>β = Effect size</li>
-                    </ul>
-                </div>
-            </section>
-        
-            <section id="practical-applications">
-                <h2>Practical Applications</h2>
-        
-                <h3>Polygenic Risk Scores (PRS)</h3>
-                <p>A method to predict genetic risk for complex traits by aggregating effects across many variants:</p>
-                <div class="formula">
-                    <p>\[PRS = \sum_{i=1}^{n} \beta_i \times SNP_i\]</p>
-                    <p>Where:</p>
-                    <ul>
-                        <li>\(\beta_i\) = effect size of SNP i</li>
-                        <li>\(SNP_i\) = genotype of SNP i (typically coded as 0, 1, or 2 alleles)</li>
-                    </ul>
-                </div>
-                <div class="example">
-                    <p><strong>Example:</strong> Calculating a simple PRS for three SNPs:</p>
-                    <ul>
-                        <li>SNP1: Effect size (β) = 0.05, Genotype = 1 → 0.05 × 1 = 0.05</li>
-                        <li>SNP2: Effect size (β) = 0.12, Genotype = 2 → 0.12 × 2 = 0.24</li>
-                        <li>SNP3: Effect size (β) = 0.03, Genotype = 0 → 0.03 × 0 = 0</li>
-                        <li>PRS = 0.05 + 0.24 + 0 = 0.29</li>
-                    </ul>
-                </div>
-        
-                <h3>Genomic Prediction Accuracy</h3>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Metric</th>
-                                <th>Formula</th>
-                                <th>Interpretation</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Area Under the ROC Curve (AUC)</td>
-                                <td>Plot of sensitivity vs. 1-specificity</td>
-                                <td>0.5 = random prediction, 1.0 = perfect prediction</td>
-                            </tr>
-                            <tr>
-                                <td>R² (Coefficient of Determination)</td>
-                                <td>\[R^2 = 1 - \frac{SS_{res}}{SS_{tot}}\]</td>
-                                <td>Proportion of variance explained by the model</td>
-                            </tr>
-                            <tr>
-                                <td>Pearson Correlation</td>
-                                <td>\[r = \frac{cov(X,Y)}{\sigma_X \sigma_Y}\]</td>
-                                <td>Linear correlation between predicted and observed values</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        
-            <section id="advanced-concepts">
-                <h2>Advanced Concepts</h2>
-        
-                <h3>Linkage Disequilibrium (LD)</h3>
-                <p>The non-random association of alleles at different loci, typically measured as r² or D':</p>
-                <div class="formula">
-                    <p>\[D = P_{AB} - P_A \times P_B\]</p>
-                    <p>\[D' = \frac{D}{D_{max}}\]</p>
-                    <p>\[r^2 = \frac{D^2}{P_A \times P_B \times (1-P_A) \times (1-P_B)}\]</p>
-                    <p>Where:</p>
-                    <ul>
-                        <li>\(P_{AB}\) = frequency of haplotype AB</li>
-                        <li>\(P_A\) = frequency of allele A</li>
-                        <li>\(P_B\) = frequency of allele B</li>
-                    </ul>
-                </div>
-        
-                <h3>Genetic Architecture Models</h3>
-                <p>Different models of how genetic variants contribute to traits:</p>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Model</th>
-                                <th>Description</th>
-                                <th>Examples</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Common Disease-Common Variant</td>
-                                <td>Common variants (MAF > 5%) with small effects</td>
-                                <td>Height, BMI</td>
-                            </tr>
-                            <tr>
-                                <td>Common Disease-Rare Variant</td>
-                                <td>Many rare variants with larger effects</td>
-                                <td>Autism, schizophrenia</td>
-                            </tr>
-                            <tr>
-                                <td>Infinitesimal Model</td>
-                                <td>Many variants with tiny effects</td>
-                                <td>Height, cognitive ability</td>
-                            </tr>
-                            <tr>
-                                <td>Oligogenic Model</td>
-                                <td>Few variants with moderate to large effects</td>
-                                <td>Some Mendelian disorders with reduced penetrance</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-        
-                <h3>Genome-Wide Complex Trait Analysis (GCTA)</h3>
-                <p>A method to estimate the proportion of phenotypic variance explained by all SNPs:</p>
-                <div class="formula">
-                    <p>\[y = X\beta + g + \epsilon\]</p>
-                    <p>Where:</p>
-                    <ul>
-                        <li>\(y\) = phenotype vector</li>
-                        <li>\(X\) = matrix of fixed effects</li>
-                        <li>\(\beta\) = vector of fixed effects</li>
-                        <li>\(g\) = vector of random genetic effects with \(g \sim N(0, G\sigma^2_g)\)</li>
-                        <li>\(G\) = genetic relationship matrix</li>
-                        <li>\(\epsilon\) = vector of residual effects</li>
-                    </ul>
-                </div>
-            </section>
-        
-            <section id="future-directions">
-                <h2>Future Directions in Quantitative Genomics</h2>
-        
-                <h3>Emerging Areas</h3>
-                <ul>
-                    <li><strong>Multi-omics Integration</strong>: Combining genomics with transcriptomics, proteomics, and metabolomics</li>
-                    <li><strong>Functional Genomics</strong>: Moving from association to causation</li>
-                    <li><strong>Pharmacogenomics</strong>: Using genetic information to optimize drug response</li>
-                    <li><strong>Gene-Environment Interactions</strong>: Understanding how genetic effects are modulated by environment</li>
-                    <li><strong>Machine Learning Applications</strong>: Leveraging AI for complex genomic pattern recognition</li>
-                </ul>
-        
-                <h3>Methodological Advances</h3>
-                <ul>
-                    <li><strong>Bayesian Methods</strong>: Incorporating prior knowledge into genomic analyses</li>
-                    <li><strong>Network-Based Approaches</strong>: Analyzing genes in biological pathways and networks</li>
-                    <li><strong>Causal Inference</strong>: Mendelian randomization and other methods for causal discovery</li>
-                    <li><strong>Single-Cell Analytics</strong>: Quantitative methods for single-cell genomic data</li>
-                </ul>
-                
-                <div class="mt-10 pt-6 border-t border-gray-700">
-                    <p class="text-gray-400 text-sm">
-                        Quantitative genomics is a rapidly evolving field at the intersection of biology, statistics, and computer science. While the mathematical foundations presented here remain relevant, new methodologies and applications continue to emerge as technology advances. The transition from discovering genetic associations to understanding their functional implications represents the next frontier in genomic research.
-                    </p>
-                    <p class="text-gray-400 text-sm mt-2">
-                        <em>This guide is intended for educational purposes only. For medical or clinical applications of genomics, please consult with qualified healthcare professionals.</em>
-                    </p>
-                </div>
-            </section>
+
+            <p>
+                Imagine you want to figure out why some people are tall and others are short. You could compare the DNA of tall people versus short people to see what's different. That's essentially what a Genome-Wide Association Study (GWAS) does—it's like a massive comparison game between people with and without certain traits or diseases.
+            </p>
+            <br>
+
+            <p>
+                Here's how it works: researchers collect DNA samples from thousands of people, some with a condition (like diabetes) and some without. They then scan millions of spots across everyone's genome looking for differences. If a particular DNA variant appears more often in people with diabetes, that suggests it might contribute to the disease. It's similar to comparing two groups of lottery tickets to see which numbers come up more often in the winning tickets.
+            </p>
+            <br>
+
+            <p>
+                The challenge is that we're making millions of comparisons simultaneously, so we need to be very strict about what counts as "significant" to avoid false discoveries. Most traits are influenced by hundreds or thousands of small genetic effects rather than one big gene, which is why we need such large sample sizes—sometimes hundreds of thousands of people—to detect these subtle patterns. The result is a better understanding of the biological pathways involved in diseases and the foundation for developing new treatments or predicting individual risk.
+            </p>
         </main>
+
         <br>
+
         <main id="poker" class="content-card p-8">
-            <h1>Basic poker probability and calculations</h1>
+            <h1>Quick Poker Probability</h1>
+            
             <br>
             <br>
-            <section id="table-of-contents" class="mb-8">
-                <h2>Table of Contents</h2>
+
+            
+            <p>
+                The key to better poker decisions is quickly estimating your chances of winning. The most useful concept is "outs"—the number of cards that will improve your hand. For example, if you have four cards to a flush, there are 9 remaining cards of that suit in the deck, so you have 9 outs.
+            </p>
+
+            <br>
+
+            <p>
+                Use the "Rule of 4 and 2" for quick mental math: multiply your outs by 4 to get your approximate percentage chance of making your hand by the river (with two cards to come), or multiply by 2 if only one card remains. So with 9 outs for a flush draw, you have roughly 36% chance to make it by the river. This isn't perfect, but it's close enough for quick decisions.
+            </p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Common Draw</th>
+                            <th>Outs</th>
+                            <th>Rough % (River)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Flush draw</td>
+                            <td>9</td>
+                            <td>36%</td>
+                        </tr>
+                        <tr>
+                            <td>Straight draw (open-ended)</td>
+                            <td>8</td>
+                            <td>32%</td>
+                        </tr>
+                        <tr>
+                            <td>Two pair or trips</td>
+                            <td>5</td>
+                            <td>20%</td>
+                        </tr>
+                        <tr>
+                            <td>Gutshot straight</td>
+                            <td>4</td>
+                            <td>16%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>
+                Compare your winning chances to pot odds: if the pot is $100 and you need to call $25, you're getting 4-to-1 odds, meaning you need to win at least 20% of the time to break even. If your flush draw gives you 36% equity, it's an easy call. The goal isn't to win every hand, but to make profitable decisions over time. Even losing a particular hand can be the "right" play if the math was in your favor.
+            </p>
+
+            <div class="example">
+                <p><strong>Quick Example:</strong> You have J♠10♠ on a flop of K♠Q♥2♦. Your opponent bets $50 into a $100 pot.</p>
                 <ul>
-                    <li><a href="#introduction">1. Introduction to Poker Probability</a></li>
-                    <li><a href="#essential-probabilities">2. Essential Poker Probabilities</a></li>
-                    <li><a href="#calculating-odds">3. Calculating Poker Odds</a></li>
-                    <li><a href="#expected-value">4. Expected Value (EV) in Poker</a></li>
-                    <li><a href="#quick-calculations">5. Quick Mental Calculation Methods</a></li>
-                    <li><a href="#decision-making">6. Decision Making Based on Statistics</a></li>
-                    <li><a href="#advanced-concepts">7. Advanced Concepts</a></li>
-                    <li><a href="#practical-applications">8. Practical Applications</a></li>
+                    <li>You have 8 outs for the straight (any Ace or 9)</li>
+                    <li>8 × 4 = 32% chance to make your straight by the river</li>
+                    <li>Pot odds: $150/$50 = 3-to-1, so you need 25% equity to call</li>
+                    <li>Since 32% > 25%, this is a profitable call</li>
                 </ul>
-            </section>
-
-            <section id="introduction">
-                <h2>Introduction to Poker Probability</h2>
-                <p>
-                    Poker is a game of skill, psychology, and mathematics. Understanding the underlying probability theory gives you a significant edge over players who rely solely on intuition. This guide will provide you with the statistical foundations of poker and practical methods for making quick, accurate calculations at the table.
-                </p>
-            </section>
-
-            <section id="essential-probabilities">
-                <h2>Essential Poker Probabilities</h2>
-                
-                <h3>Starting Hand Probabilities</h3>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Hand Type</th>
-                                <th>Probability</th>
-                                <th>Fraction</th>
-                                <th>Percentage</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Any specific pair (e.g., A♠A♥)</td>
-                                <td>1 in 221</td>
-                                <td>1/221</td>
-                                <td>0.45%</td>
-                            </tr>
-                            <tr>
-                                <td>Any pair</td>
-                                <td>6 in 221</td>
-                                <td>6/221</td>
-                                <td>2.7%</td>
-                            </tr>
-                            <tr>
-                                <td>Any specific suited cards (e.g., A♠K♠)</td>
-                                <td>4 in 1,326</td>
-                                <td>4/1,326</td>
-                                <td>0.3%</td>
-                            </tr>
-                            <tr>
-                                <td>Any specific unsuited cards (e.g., A♠K♥)</td>
-                                <td>12 in 1,326</td>
-                                <td>12/1,326</td>
-                                <td>0.9%</td>
-                            </tr>
-                            <tr>
-                                <td>A-K suited</td>
-                                <td>4 in 1,326</td>
-                                <td>4/1,326</td>
-                                <td>0.3%</td>
-                            </tr>
-                            <tr>
-                                <td>A-K unsuited</td>
-                                <td>12 in 1,326</td>
-                                <td>12/1,326</td>
-                                <td>0.9%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h3>Post-Flop Hand Probabilities</h3>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Scenario</th>
-                                <th>Probability</th>
-                                <th>Odds</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Flopping a set with a pocket pair</td>
-                                <td>1 in 8.5</td>
-                                <td>11.8%</td>
-                            </tr>
-                            <tr>
-                                <td>Flopping two pair with unpaired cards</td>
-                                <td>1 in 49</td>
-                                <td>2.0%</td>
-                            </tr>
-                            <tr>
-                                <td>Flopping a flush with suited cards</td>
-                                <td>1 in 118</td>
-                                <td>0.8%</td>
-                            </tr>
-                            <tr>
-                                <td>Flopping a flush draw with suited cards</td>
-                                <td>1 in 8</td>
-                                <td>12.3%</td>
-                            </tr>
-                            <tr>
-                                <td>Flopping an open-ended straight draw</td>
-                                <td>1 in 10.5</td>
-                                <td>9.5%</td>
-                            </tr>
-                            <tr>
-                                <td>Flopping a gutshot straight draw</td>
-                                <td>1 in 6.5</td>
-                                <td>15.4%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h3>Drawing Hand Probabilities</h3>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Draw Type</th>
-                                <th>Outs</th>
-                                <th>Turn (1 card)</th>
-                                <th>River (1 card)</th>
-                                <th>Turn & River (2 cards)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Flush draw</td>
-                                <td>9</td>
-                                <td>19.1%</td>
-                                <td>19.6%</td>
-                                <td>35.0%</td>
-                            </tr>
-                            <tr>
-                                <td>Open-ended straight draw</td>
-                                <td>8</td>
-                                <td>17.0%</td>
-                                <td>17.4%</td>
-                                <td>31.5%</td>
-                            </tr>
-                            <tr>
-                                <td>Gutshot straight draw</td>
-                                <td>4</td>
-                                <td>8.5%</td>
-                                <td>8.7%</td>
-                                <td>16.5%</td>
-                            </tr>
-                            <tr>
-                                <td>Set to full house or quads</td>
-                                <td>7</td>
-                                <td>14.9%</td>
-                                <td>15.2%</td>
-                                <td>28.3%</td>
-                            </tr>
-                            <tr>
-                                <td>Pocket pair to set</td>
-                                <td>2</td>
-                                <td>4.3%</td>
-                                <td>4.3%</td>
-                                <td>8.4%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <section id="calculating-odds">
-                <h2>Calculating Poker Odds</h2>
-
-                <h3>Basic Odds Calculation</h3>
-                <p>The formula for calculating odds against an event:</p>
-                <div class="formula">
-                    <p>\[\text{Odds Against} = \frac{\text{Number of Unfavorable Outcomes}}{\text{Number of Favorable Outcomes}}\]</p>
-                    <p>Or</p>
-                    <p>\[\text{Odds Against} = \frac{1 - P}{P}\]</p>
-                    <p>Where P is the probability of success.</p>
-                </div>
-
-                <h3>Converting Between Probability and Odds</h3>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>From</th>
-                                <th>Formula</th>
-                                <th>Example</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Odds to Probability</td>
-                                <td>\(P = \frac{1}{1 + \text{Odds}}\)</td>
-                                <td>3:1 odds = 1/(1+3) = 0.25 or 25%</td>
-                            </tr>
-                            <tr>
-                                <td>Probability to Odds</td>
-                                <td>\(\text{Odds} = \frac{1-P}{P}\)</td>
-                                <td>25% probability = (1-0.25)/0.25 = 3 or 3:1 odds</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h3>The Concept of Outs</h3>
-                <p>"Outs" are the cards that can improve your hand. Calculating your outs is the foundation of poker probability.</p>
-                <div class="example">
-                    <p><strong>Example:</strong> If you have 9♥10♥ and the flop is 7♥8♦Q♥, your outs are:</p>
-                    <ul>
-                        <li>Any heart (flush): 9 cards</li>
-                        <li>Any Jack (straight): 4 cards</li>
-                        <li>Minus overlap (J♥): -1 card</li>
-                        <li>Total outs: 12 cards</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section id="expected-value">
-                <h2>Expected Value (EV) in Poker</h2>
-                <p>Expected Value is the long-term average outcome of a decision. It's calculated as:</p>
-                <div class="formula">
-                    <p>\[EV = (P_{win} \times \text{Win Amount}) - (P_{lose} \times \text{Lose Amount})\]</p>
-                    <p>Where:</p>
-                    <ul>
-                        <li>\(P_{win}\) is the probability of winning</li>
-                        <li>\(P_{lose}\) is the probability of losing (equal to \(1 - P_{win}\))</li>
-                    </ul>
-                </div>
-
-                <h3>Example EV Calculation</h3>
-                <div class="example">
-                    <p><strong>Scenario:</strong> You have a flush draw (9 outs) on the flop.</p>
-                    <ul>
-                        <li>The pot is $100</li>
-                        <li>Your opponent bets $50</li>
-                        <li>You need to call $50 to continue</li>
-                    </ul>
-                    <p><strong>Calculating EV:</strong></p>
-                    <ol>
-                        <li>Your probability of hitting by the river is about 35% (using the Rule of 4)</li>
-                        <li>If you hit, you win $150 (current pot + opponent's bet)</li>
-                        <li>If you miss, you lose $50 (your call)</li>
-                    </ol>
-                    <p>\[EV = (0.35 \times \$150) - (0.65 \times \$50)\]</p>
-                    <p>\[EV = \$52.50 - \$32.50 = \$20\]</p>
-                    <p>Since the EV is positive, this is a profitable call in the long run.</p>
-                </div>
-
-                <h3>Pot Odds vs. Card Odds</h3>
-                <p>Pot odds are the ratio of the current pot size to the cost of a contemplated call.</p>
-                <div class="formula">
-                    <p>\[\text{Pot Odds} = \frac{\text{Current Pot Size}}{\text{Cost to Call}}\]</p>
-                </div>
-                <p>If your pot odds are greater than your card odds, you have a profitable call.</p>
-                <div class="example">
-                    <p><strong>Example:</strong></p>
-                    <ul>
-                        <li>The pot is $100</li>
-                        <li>Your opponent bets $25</li>
-                        <li>Pot odds = $125/$25 = 5:1</li>
-                        <li>With a flush draw (35% to hit), your card odds are about 2:1</li>
-                        <li>Since 5:1 > 2:1, this is a profitable call</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section id="quick-calculations">
-                <h2>Quick Mental Calculation Methods</h2>
-
-                <h3>The Rule of 2 and 4</h3>
-                <p>A simple method to estimate the probability of completing a draw:</p>
-                <ul>
-                    <li>With one card to come (turn to river): Multiply outs by 2 to get percentage</li>
-                    <li>With two cards to come (flop to river): Multiply outs by 4 to get percentage</li>
-                </ul>
-                <div class="example">
-                    <p><strong>Example:</strong> With 8 outs (open-ended straight draw)</p>
-                    <ul>
-                        <li>Turn probability: 8 × 2 = 16%</li>
-                        <li>Flop to river probability: 8 × 4 = 32%</li>
-                    </ul>
-                    <p>This is a slight overestimation but works well for quick decisions.</p>
-                </div>
-
-                <h3>The Rule of 4 and 2 (More Accurate)</h3>
-                <p>A more precise version:</p>
-                <ul>
-                    <li>Multiply outs by 4 for turn probability</li>
-                    <li>Multiply outs by 2 for river probability (if you missed on the turn)</li>
-                    <li>Add them for combined probability from flop to river</li>
-                </ul>
-                <div class="example">
-                    <p><strong>Example:</strong> 8 straight draw outs</p>
-                    <ul>
-                        <li>Turn probability: 8 × 4 = 32%</li>
-                        <li>River probability (if missed on turn): 8 × 2 = 16%</li>
-                        <li>Combined: 32% + (68% × 16%) = 32% + 10.9% = 42.9%</li>
-                    </ul>
-                    <p>The actual mathematical probability is 31.5%, so this is still an approximation.</p>
-                </div>
-
-                <h3>Quick Pot Odds Estimation</h3>
-                <p>Breaking down common bet sizes and the equity needed to call:</p>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Bet Size (relative to pot)</th>
-                                <th>Equity Needed to Call</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1/4 pot bet</td>
-                                <td>20%</td>
-                            </tr>
-                            <tr>
-                                <td>1/2 pot bet</td>
-                                <td>25%</td>
-                            </tr>
-                            <tr>
-                                <td>3/4 pot bet</td>
-                                <td>30%</td>
-                            </tr>
-                            <tr>
-                                <td>Full pot bet</td>
-                                <td>33%</td>
-                            </tr>
-                            <tr>
-                                <td>1.5x pot bet</td>
-                                <td>37.5%</td>
-                            </tr>
-                            <tr>
-                                <td>2x pot bet</td>
-                                <td>40%</td>
-                            </tr>
-                            <tr>
-                                <td>3x pot bet</td>
-                                <td>43%</td>
-                            </tr>
-                            <tr>
-                                <td>All-in (very large bet)</td>
-                                <td>approaches 50%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <section id="decision-making">
-                <h2>Decision Making Based on Statistics</h2>
-
-                <h3>Key Decision Points in Poker</h3>
-                <ol>
-                    <li>
-                        <strong>Preflop decisions:</strong>
-                        <ul>
-                            <li>Use starting hand charts based on position</li>
-                            <li>Adjust based on stack sizes and opponent tendencies</li>
-                            <li>Remember that position is worth approximately 1-2 card ranks in value</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <strong>Postflop with made hands:</strong>
-                        <ul>
-                            <li>Calculate the strength of your hand relative to possible opponent holdings</li>
-                            <li>Estimate how your hand will perform against calling and raising ranges</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <strong>Postflop with drawing hands:</strong>
-                        <ul>
-                            <li>Calculate pot odds and compare to drawing odds</li>
-                            <li>Consider implied odds for future betting rounds</li>
-                            <li>Evaluate the disguised value of your hand if you hit</li>
-                        </ul>
-                    </li>
-                </ol>
-
-                <h3>Bankroll Management Using Probability</h3>
-                <p>The Risk of Ruin (RoR) formula for a simplified poker model:</p>
-                <div class="formula">
-                    <p>\[\text{RoR} = \left(\frac{1-\text{edge}}{1+\text{edge}}\right)^{\text{bankroll}/\text{buyin}}\]</p>
-                    <p>Where:</p>
-                    <ul>
-                        <li>edge is your win rate as a decimal</li>
-                        <li>bankroll is your total poker money</li>
-                        <li>buyin is the amount for one game</li>
-                    </ul>
-                </div>
-                <div class="example">
-                    <p><strong>Example:</strong> With a 5% edge and 20 buyins:</p>
-                    <p>\[\text{RoR} = \left(\frac{1-0.05}{1+0.05}\right)^{20} = (0.95/1.05)^{20} \approx 0.36 = 36\%\]</p>
-                </div>
-            </section>
-
-            <section id="advanced-concepts">
-                <h2>Advanced Concepts</h2>
-
-                <h3>Equity Calculation</h3>
-                <p>Equity is your share of the pot based on your probability of winning.</p>
-                <div class="example">
-                    <p><strong>Example:</strong></p>
-                    <ul>
-                        <li>You have A♠K♠ vs. opponent's Q♥Q♦</li>
-                        <li>Your equity is approximately 43%</li>
-                        <li>If the pot is $100, your equity is $43</li>
-                    </ul>
-                </div>
-                <p>Common equity matchups to memorize:</p>
-                <ul>
-                    <li>Pair vs. Overcards: approximately 55% vs. 45%</li>
-                    <li>Top Pair vs. Flush Draw: approximately 65% vs. 35%</li>
-                    <li>Set vs. Two Pair: approximately 75% vs. 25%</li>
-                </ul>
-
-                <h3>Balancing Ranges</h3>
-                <p>A mathematically balanced range contains an optimal ratio of value bets to bluffs:</p>
-                <div class="formula">
-                    <p>\[\text{Optimal Bluff Frequency} = \frac{\text{Bet Size}}{\text{Pot Size} + \text{Bet Size}}\]</p>
-                </div>
-                <div class="example">
-                    <p><strong>Example:</strong></p>
-                    <ul>
-                        <li>You bet $75 into a $100 pot</li>
-                        <li>Optimal bluff frequency = $75/($100+$75) = 0.43 or 43%</li>
-                        <li>Your range should contain 43% bluffs and 57% value hands</li>
-                    </ul>
-                </div>
-
-                <h3>Combinatorial Analysis</h3>
-                <p>Counting hand combinations to analyze ranges:</p>
-                <ul>
-                    <li>Total possible starting hands: 1,326 combinations</li>
-                    <li>Specific pair (e.g., AA): 6 combinations</li>
-                    <li>Specific suited hand (e.g., AK suited): 4 combinations</li>
-                    <li>Specific offsuit hand (e.g., AK offsuit): 12 combinations</li>
-                </ul>
-            </section>
-
-            <section id="practical-applications">
-                <h2>Practical Applications</h2>
-
-                <h3>In-Game Calculation Example</h3>
-                <div class="example">
-                    <p><strong>Street:</strong> Flop</p>
-                    <ul>
-                        <li>Your hand: J♠10♠</li>
-                        <li>Board: K♠Q♥2♦</li>
-                        <li>Action: Opponent bets $40 into $60 pot</li>
-                    </ul>
-                    <p><strong>Quick analysis:</strong></p>
-                    <ol>
-                        <li>You have 8 outs for the straight (any Ace or 9)</li>
-                        <li>Using Rule of 4: 8 × 4 = 32% to hit by the river</li>
-                        <li>Pot odds: $100/$40 = 2.5:1</li>
-                        <li>Converting your chance to odds: (100-32)/32 = 2.1:1</li>
-                        <li>Since 2.5:1 > 2.1:1, this is a profitable call</li>
-                    </ol>
-                </div>
-
-                <h3>Tournament Strategy Adjustments</h3>
-                <p>ICM (Independent Chip Model) considerations modify EV calculations in tournaments:</p>
-                <ul>
-                    <li>Each chip gained has decreasing marginal value</li>
-                    <li>Each chip lost has increasing marginal cost</li>
-                    <li>This creates a "risk premium" on decisions</li>
-                </ul>
-                <div class="formula">
-                    <p>\[\text{ICM-adjusted EV} = \text{EV} - \text{Risk Premium}\]</p>
-                </div>
-                <p>Where Risk Premium increases as:</p>
-                <ul>
-                    <li>The tournament gets closer to payouts</li>
-                    <li>Your stack gets shorter relative to the blinds</li>
-                    <li>The pay jumps get larger</li>
-                </ul>
-                
-                <div class="mt-10 pt-6 border-t border-gray-700">
-                    <p class="text-gray-400 text-sm">
-                        Remember that poker is both art and science. These calculations provide a foundation, but factors like player psychology, table image, and specific opponent tendencies will always influence optimal decision-making. The best players combine statistical knowledge with keen observation and adaptability.
-                    </p>
-                    <p class="text-gray-400 text-sm mt-2">
-                        <em>This guide is for educational purposes only. Gambling involves risk, and you should only play with money you can afford to lose.</em>
-                    </p>
-                </div>
-            </section>
+            </div>
         </main>
 
         <footer class="mt-20 text-center">

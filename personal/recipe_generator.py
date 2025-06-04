@@ -1,48 +1,39 @@
 #!/usr/bin/env python3
 """
-Recipe HTML Generator
+Flask Recipe Generator Web Application
 
-This script generates an HTML recipe file based on the provided template.
-It takes command line arguments for recipe details, ingredients, and directions.
+A web interface for generating recipe HTML files using the existing recipe_generator.py logic.
+Provides a form for inputting recipe details and generates downloadable HTML files.
 
 Usage:
-    python recipe_generator.py --title "Recipe Title" --description "Recipe description" 
-                              --difficulty easy|medium|hard --prep-time "10 mins" --cook-time "20 mins"
-                              --servings 4 --categories "dinner,italian"
-                              --ingredients "ingredient1:amount1,ingredient2:amount2,..."
-                              --directions "Step 1,Step 2,..."
-                              --notes "Optional notes"
-                              --output "recipe-filename.html"
+    python app.py
 
-Example:
-    python recipe_generator.py --title "Chocolate Chip Cookies" 
-                                --description "Classic homemade chocolate chip cookies with a soft center and crispy edges." 
-                                --difficulty easy 
-                                --prep-time "15 mins" 
-                                --cook-time "10 mins" 
-                                --servings 24 
-                                --categories "dessert,snack,baking" 
-                                --ingredients "all-purpose flour:2 1/4 cups,baking soda:1 tsp,salt:1 tsp,butter:1 cup (softened),brown sugar:3/4 cup,granulated sugar:3/4 cup,vanilla extract:1 tsp,eggs:2 large,chocolate chips:2 cups" 
-                                --directions "Preheat oven to 375°F (190°C).,Combine flour, baking soda, and salt in a small bowl.,Beat butter, brown sugar, granulated sugar, and vanilla in large mixer bowl.,Add eggs one at a time, beating well after each addition.,Gradually beat in flour mixture.,Stir in chocolate chips.,Drop by rounded tablespoon onto ungreased baking sheets.,Bake for 9 to 11 minutes or until golden brown.,Cool on baking sheets for 2 minutes; remove to wire racks to cool completely." 
-                                --notes "For softer cookies, bake for 8-9 minutes. For crispier cookies, bake for 11-12 minutes. Store in an airtight container for up to 5 days." 
-                                --output "recipes/chocolate-chip-cookies.html" 
-                                --update-json
+Then navigate to http://localhost:5000 in your web browser.
 """
 
-import argparse
+from flask import Flask, render_template_string, request, send_file, flash, redirect, url_for, jsonify
 import os
+import tempfile
+import zipfile
+from datetime import datetime
 import json
 import re
-from datetime import datetime
+from pathlib import Path
 
+app = Flask(__name__)
+app.secret_key = "your-secret-key-here"  # Change this to a secure secret key
 
+# Import the functions from your existing recipe_generator.py
 def parse_ingredients(ingredients_str):
     """Parse ingredients string into a list of tuples (ingredient, amount)."""
     if not ingredients_str:
         return []
     
     ingredients = []
-    for item in ingredients_str.split(","):
+    for item in ingredients_str.split("\n"):
+        item = item.strip()
+        if not item:
+            continue
         parts = item.split(":")
         if len(parts) >= 2:
             ingredient = parts[0].strip()
@@ -54,63 +45,43 @@ def parse_ingredients(ingredients_str):
     
     return ingredients
 
-
 def parse_directions(directions_str):
     """Parse directions string into a list of steps."""
     if not directions_str:
         return []
     
-    return [step.strip() for step in directions_str.split(",")]
-
+    return [step.strip() for step in directions_str.split("\n") if step.strip()]
 
 def parse_categories(categories_str):
     """Parse categories string into a list."""
     if not categories_str:
         return []
     
-    return [category.strip() for category in categories_str.split(",")]
-
+    return [category.strip() for category in categories_str.split(",") if category.strip()]
 
 def generate_id(title):
     """Generate a URL-friendly ID from the title."""
-    # Convert to lowercase, replace spaces with hyphens, remove non-alphanumeric chars
     return re.sub(r"[^a-z0-9-]", "", title.lower().replace(" ", "-"))
-
 
 def highlight_ingredients_in_step(step, ingredients):
     """Add highlighting to ingredients mentioned in a step."""
-    # Sort ingredients by length (longest first) to avoid partial matches
-    sorted_ingredients = sorted(ingredients, key=lambda x: len(x[0]), reverse=True)
+    sorted_ingredients = sorted(ingredients, key = lambda x: len(x[0]), reverse = True)
     
     for ingredient, amount in sorted_ingredients:
-        # Escape special characters for regex
         ingredient_escaped = re.escape(ingredient.lower())
-        # Look for the ingredient name with word boundaries
         pattern = rf"\b{ingredient_escaped}s?\b"
         
-        # Create the replacement with highlighting and amount
         if amount:
             replacement = f'<span class="ingredient-used">{ingredient} ({amount})</span>'
         else:
             replacement = f'<span class="ingredient-used">{ingredient}</span>'
         
-        # Replace case-insensitively
-        step = re.sub(pattern, replacement, step, flags=re.IGNORECASE)
+        step = re.sub(pattern, replacement, step, flags = re.IGNORECASE)
     
     return step
 
-
-def generate_html(args, ingredients, directions):
+def generate_html(title, description, difficulty, prep_time, cook_time, servings, categories, ingredients, directions, notes):
     """Generate the HTML content for the recipe."""
-    # Set default values
-    title = args.title or "Recipe Title"
-    description = args.description or "Recipe description."
-    difficulty = args.difficulty or "easy"
-    prep_time = args.prep_time or "10 mins"
-    cook_time = args.cook_time or "20 mins"
-    servings = args.servings or 4
-    notes = args.notes or ""
-    
     difficulty_class = f"difficulty-{difficulty}"
     
     # Generate ingredients HTML
@@ -129,7 +100,6 @@ def generate_html(args, ingredients, directions):
     # Generate directions HTML
     directions_html = ""
     for index, step in enumerate(directions, 1):
-        # Highlight ingredients in the step
         highlighted_step = highlight_ingredients_in_step(step, ingredients)
         
         directions_html += f"""
@@ -146,7 +116,7 @@ def generate_html(args, ingredients, directions):
     
     # Generate categories meta tags
     categories_meta = ""
-    for category in parse_categories(args.categories):
+    for category in categories:
         categories_meta += f'    <meta name="recipe-category" content="{category}">\n'
     
     # Format the HTML template
@@ -465,135 +435,451 @@ def generate_html(args, ingredients, directions):
 """
     return html_template
 
-
-def update_json(recipe_id, title, description, difficulty, time, servings, categories):
-    """Update the recipes.json file with the new recipe."""
-    json_path = "recipes.json"
-    
-    # Load existing JSON if it exists
-    recipes = []
-    if os.path.exists(json_path):
-        try:
-            with open(json_path, "r") as f:
-                recipes = json.load(f)
-        except json.JSONDecodeError:
-            # If JSON is invalid, start with an empty list
-            recipes = []
-    
-    # Check if recipe already exists
-    recipe_exists = False
-    for i, recipe in enumerate(recipes):
-        if recipe.get("id") == recipe_id:
-            # Update existing recipe
-            recipes[i] = {
-                "id": recipe_id,
-                "title": title,
-                "description": description,
-                "difficulty": difficulty,
-                "time": time,
-                "servings": servings,
-                "categories": categories,
-                "display": True
-            }
-            recipe_exists = True
-            break
-    
-    # Add new recipe if it doesn't exist
-    if not recipe_exists:
-        new_recipe = {
-            "id": recipe_id,
-            "title": title,
-            "description": description,
-            "difficulty": difficulty,
-            "time": time,
-            "servings": servings,
-            "categories": categories,
-            "display": True
+# HTML template for the web form
+FORM_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Generator - Eli's Kitchen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #121212;
+            background-image: linear-gradient(to bottom right, #121212, #1a1a2e);
+            color: #f5f5f5;
+            line-height: 1.6;
+            min-height: 100vh;
         }
-        recipes.append(new_recipe)
-    
-    # Write updated JSON
-    with open(json_path, "w") as f:
-        json.dump(recipes, f, indent=2)
-    
-    return recipe_exists
+        
+        .form-container {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #e0e0e0;
+        }
+        
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: #f5f5f5;
+            transition: border-color 0.3s;
+        }
+        
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #4a5568, #2d3748);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #2d3748, #1a202c);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(90deg, #2f855a, #276749);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(90deg, #276749, #22543d);
+            transform: translateY(-2px);
+        }
+        
+        .flash-message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .flash-success {
+            background-color: rgba(72, 187, 120, 0.1);
+            border: 1px solid #48bb78;
+            color: #68d391;
+        }
+        
+        .flash-error {
+            background-color: rgba(245, 101, 101, 0.1);
+            border: 1px solid #f56565;
+            color: #fc8181;
+        }
+        
+        .help-text {
+            font-size: 0.875rem;
+            color: #a0aec0;
+            margin-top: 0.25rem;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-6 py-12 max-w-4xl">
+        <header class="mb-12 text-center">
+            <h1 class="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-100 to-gray-400">Recipe Generator</h1>
+            <div class="w-24 h-1 mx-auto bg-gradient-to-r from-gray-500 to-gray-700 mb-8"></div>
+            <p class="text-gray-300 text-lg">Create beautiful recipe pages with our simple form</p>
+        </header>
 
+        <main>
+            <div class="form-container p-8">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="flash-message flash-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
 
-def main():
-    parser = argparse.ArgumentParser(description="Generate an HTML recipe file")
-    
-    # Recipe metadata
-    parser.add_argument("--title", help="Recipe title")
-    parser.add_argument("--description", help="Recipe description")
-    parser.add_argument("--difficulty", choices=["easy", "medium", "hard"], default="easy", help="Recipe difficulty")
-    parser.add_argument("--prep-time", help="Preparation time (e.g., '10 mins')")
-    parser.add_argument("--cook-time", help="Cooking time (e.g., '20 mins')")
-    parser.add_argument("--servings", type=int, help="Number of servings")
-    parser.add_argument("--categories", help="Comma-separated list of categories")
-    
-    # Recipe content
-    parser.add_argument("--ingredients", help="Comma-separated list of 'ingredient:amount' pairs")
-    parser.add_argument("--directions", help="Comma-separated list of directions")
-    parser.add_argument("--notes", help="Additional notes for the recipe")
-    
-    # Output options
-    parser.add_argument("--output", help="Output HTML file path")
-    parser.add_argument("--update-json", action="store_true", help="Update recipes.json file")
-    
-    args = parser.parse_args()
-    
-    # Parse ingredients and directions
-    ingredients = parse_ingredients(args.ingredients)
-    directions = parse_directions(args.directions)
-    
-    # Generate HTML
-    html_content = generate_html(args, ingredients, directions)
-    
-    # Generate recipe ID if not provided
-    recipe_id = generate_id(args.title) if args.title else "unnamed-recipe"
-    
-    # Determine output file path
-    output_path = args.output if args.output else f"{recipe_id}.html"
-    
-    # Write HTML to file
-    with open(output_path, "w") as f:
-        f.write(html_content)
-    
-    print(f"Recipe HTML written to {output_path}")
-    
-    # Update recipes.json if requested
-    if args.update_json:
-        # Calculate total time
-        prep_time = args.prep_time or "0 mins"
-        cook_time = args.cook_time or "0 mins"
+                <form method="POST" action="/generate">
+                    <!-- Basic Recipe Information -->
+                    <h2 class="text-2xl font-bold mb-6 text-gray-200">Basic Information</h2>
+                    
+                    <div class="form-group">
+                        <label for="title" class="form-label">Recipe Title *</label>
+                        <input type="text" id="title" name="title" class="form-input" required 
+                               placeholder="e.g., Chocolate Chip Cookies" value="{{ request.form.title }}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description" class="form-label">Description *</label>
+                        <textarea id="description" name="description" class="form-textarea" required 
+                                  placeholder="Brief description of your recipe...">{{ request.form.description }}</textarea>
+                        <div class="help-text">This will appear in search results and recipe cards</div>
+                    </div>
+                    
+                    <div class="two-column">
+                        <div class="form-group">
+                            <label for="difficulty" class="form-label">Difficulty *</label>
+                            <select id="difficulty" name="difficulty" class="form-select" required>
+                                <option value="easy" {{ 'selected' if request.form.difficulty == 'easy' else '' }}>Easy</option>
+                                <option value="medium" {{ 'selected' if request.form.difficulty == 'medium' else '' }}>Medium</option>
+                                <option value="hard" {{ 'selected' if request.form.difficulty == 'hard' else '' }}>Hard</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="servings" class="form-label">Servings *</label>
+                            <input type="number" id="servings" name="servings" class="form-input" required 
+                                   min="1" placeholder="4" value="{{ request.form.servings }}">
+                        </div>
+                    </div>
+                    
+                    <div class="two-column">
+                        <div class="form-group">
+                            <label for="prep_time" class="form-label">Prep Time *</label>
+                            <input type="text" id="prep_time" name="prep_time" class="form-input" required 
+                                   placeholder="15 mins" value="{{ request.form.prep_time }}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cook_time" class="form-label">Cook Time *</label>
+                            <input type="text" id="cook_time" name="cook_time" class="form-input" required 
+                                   placeholder="25 mins" value="{{ request.form.cook_time }}">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="categories" class="form-label">Categories</label>
+                        <input type="text" id="categories" name="categories" class="form-input" 
+                               placeholder="dinner, italian, pasta" value="{{ request.form.categories }}">
+                        <div class="help-text">Separate multiple categories with commas</div>
+                    </div>
+                    
+                    <!-- Ingredients -->
+                    <h2 class="text-2xl font-bold mb-6 mt-8 text-gray-200">Ingredients</h2>
+                    
+                    <div class="form-group">
+                        <label for="ingredients" class="form-label">Ingredients *</label>
+                        <textarea id="ingredients" name="ingredients" class="form-textarea" required 
+                                  style="min-height: 200px;" placeholder="Enter each ingredient on a new line in format:
+ingredient name: amount
+
+Example:
+all-purpose flour: 2 cups
+baking soda: 1 tsp
+salt: 1/2 tsp
+butter: 1 cup (softened)">{{ request.form.ingredients }}</textarea>
+                        <div class="help-text">Enter one ingredient per line in format: "ingredient name: amount"</div>
+                    </div>
+                    
+                    <!-- Directions -->
+                    <h2 class="text-2xl font-bold mb-6 mt-8 text-gray-200">Directions</h2>
+                    
+                    <div class="form-group">
+                        <label for="directions" class="form-label">Instructions *</label>
+                        <textarea id="directions" name="directions" class="form-textarea" required 
+                                  style="min-height: 250px;" placeholder="Enter each step on a new line:
+
+Preheat oven to 375°F (190°C).
+Mix dry ingredients in a large bowl.
+In another bowl, cream butter and sugars.
+Add eggs one at a time.
+Gradually mix in dry ingredients.
+Bake for 10-12 minutes.">{{ request.form.directions }}</textarea>
+                        <div class="help-text">Enter one step per line. Steps will be automatically numbered.</div>
+                    </div>
+                    
+                    <!-- Notes -->
+                    <h2 class="text-2xl font-bold mb-6 mt-8 text-gray-200">Additional Notes</h2>
+                    
+                    <div class="form-group">
+                        <label for="notes" class="form-label">Recipe Notes</label>
+                        <textarea id="notes" name="notes" class="form-textarea" 
+                                  placeholder="Any additional tips, storage instructions, variations, or serving suggestions...">{{ request.form.notes }}</textarea>
+                        <div class="help-text">Optional: Add any helpful tips or variations</div>
+                    </div>
+                    
+                    <!-- Submit Buttons -->
+                    <div class="flex flex-wrap gap-4 mt-8">
+                        <button type="submit" name="action" value="preview" class="btn-primary">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                            Preview Recipe
+                        </button>
+                        
+                        <button type="submit" name="action" value="download" class="btn-secondary">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            Download HTML
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <footer class="mt-12 mb-8 text-center text-gray-400">
+            <p>&copy; 2025 Eli Furgeson - Recipe Generator</p>
+        </footer>
+    </div>
+
+    <script>
+        // Auto-resize textareas
+        document.querySelectorAll('textarea').forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = this.scrollHeight + 'px';
+            });
+        });
         
-        # Extract minutes from time strings
-        prep_mins = int(re.search(r"(\d+)", prep_time).group(1)) if re.search(r"(\d+)", prep_time) else 0
-        cook_mins = int(re.search(r"(\d+)", cook_time).group(1)) if re.search(r"(\d+)", cook_time) else 0
+        // Flash message auto-hide
+        setTimeout(() => {
+            document.querySelectorAll('.flash-message').forEach(msg => {
+                msg.style.opacity = '0';
+                msg.style.transform = 'translateY(-10px)';
+                setTimeout(() => msg.remove(), 300);
+            });
+        }, 5000);
+    </script>
+</body>
+</html>
+"""
+
+@app.route("/")
+def index():
+    return render_template_string(FORM_TEMPLATE)
+
+@app.route("/generate", methods = ["POST"])
+def generate_recipe():
+    try:
+        # Get form data
+        title = request.form.get("title", "").strip()
+        description = request.form.get("description", "").strip()
+        difficulty = request.form.get("difficulty", "easy")
+        prep_time = request.form.get("prep_time", "").strip()
+        cook_time = request.form.get("cook_time", "").strip()
+        servings = request.form.get("servings", "4")
+        categories_str = request.form.get("categories", "").strip()
+        ingredients_str = request.form.get("ingredients", "").strip()
+        directions_str = request.form.get("directions", "").strip()
+        notes = request.form.get("notes", "").strip()
+        action = request.form.get("action", "preview")
         
-        # Calculate total time
-        total_mins = prep_mins + cook_mins
-        total_time = f"{total_mins} mins"
+        # Validate required fields
+        if not all([title, description, prep_time, cook_time, ingredients_str, directions_str]):
+            flash("Please fill in all required fields.", "error")
+            return render_template_string(FORM_TEMPLATE)
         
-        # Get categories as list
-        categories = parse_categories(args.categories)
+        # Parse the form data
+        try:
+            servings = int(servings)
+        except ValueError:
+            servings = 4
+            
+        categories = parse_categories(categories_str)
+        ingredients = parse_ingredients(ingredients_str)
+        directions = parse_directions(directions_str)
         
-        # Update JSON
-        exists = update_json(
-            recipe_id,
-            args.title,
-            args.description,
-            args.difficulty,
-            total_time,
-            args.servings,
-            categories
+        if not ingredients:
+            flash("Please enter at least one ingredient.", "error")
+            return render_template_string(FORM_TEMPLATE)
+            
+        if not directions:
+            flash("Please enter at least one instruction step.", "error")
+            return render_template_string(FORM_TEMPLATE)
+        
+        # Generate the HTML
+        html_content = generate_html(
+            title, description, difficulty, prep_time, cook_time,
+            servings, categories, ingredients, directions, notes
         )
         
-        if exists:
-            print(f"Updated existing recipe '{args.title}' in recipes.json")
+        if action == "preview":
+            # Return the generated HTML for preview
+            return html_content
+        
+        elif action == "download":
+            # Create a temporary file for download
+            recipe_id = generate_id(title)
+            filename = f"{recipe_id}.html"
+            
+            # Create temporary file
+            temp_file = tempfile.NamedTemporaryFile(mode = "w", suffix = ".html", delete = False, encoding = "utf-8")
+            temp_file.write(html_content)
+            temp_file.close()
+            
+            def remove_file(response):
+                try:
+                    os.unlink(temp_file.name)
+                except Exception:
+                    pass
+                return response
+            
+            # Send file and clean up
+            return send_file(
+                temp_file.name,
+                as_attachment = True,
+                download_name = filename,
+                mimetype = "text/html"
+            )
+        
         else:
-            print(f"Added new recipe '{args.title}' to recipes.json")
+            flash("Invalid action specified.", "error")
+            return render_template_string(FORM_TEMPLATE)
+            
+    except Exception as e:
+        flash(f"An error occurred: {str(e)}", "error")
+        return render_template_string(FORM_TEMPLATE)
 
+@app.route("/api/validate", methods = ["POST"])
+def validate_form():
+    """API endpoint to validate form data without generating the full recipe."""
+    try:
+        data = request.get_json()
+        
+        errors = []
+        warnings = []
+        
+        # Check required fields
+        required_fields = ["title", "description", "prep_time", "cook_time", "ingredients", "directions"]
+        for field in required_fields:
+            if not data.get(field, "").strip():
+                errors.append(f"{field.replace('_', ' ').title()} is required")
+        
+        # Validate ingredients format
+        if data.get("ingredients"):
+            ingredients = parse_ingredients(data["ingredients"])
+            if len(ingredients) == 0:
+                errors.append("Please enter at least one ingredient")
+            elif len(ingredients) < 3:
+                warnings.append("Recipes with fewer than 3 ingredients might be too simple")
+        
+        # Validate directions
+        if data.get("directions"):
+            directions = parse_directions(data["directions"])
+            if len(directions) == 0:
+                errors.append("Please enter at least one instruction step")
+            elif len(directions) < 3:
+                warnings.append("Consider adding more detailed steps for clarity")
+        
+        # Validate servings
+        try:
+            servings = int(data.get("servings", 0))
+            if servings <= 0:
+                errors.append("Servings must be a positive number")
+            elif servings > 50:
+                warnings.append("That's a lot of servings! Double-check if this is correct")
+        except ValueError:
+            errors.append("Servings must be a valid number")
+        
+        # Check for common time format issues
+        time_fields = ["prep_time", "cook_time"]
+        for field in time_fields:
+            time_val = data.get(field, "").strip()
+            if time_val and not re.search(r"\d+\s*(min|hour|hr)", time_val, re.IGNORECASE):
+                warnings.append(f"{field.replace('_', ' ').title()} should include units (e.g., '30 mins', '1 hour')")
+        
+        return jsonify({
+            "valid": len(errors) == 0,
+            "errors": errors,
+            "warnings": warnings
+        })
+        
+    except Exception as e:
+        return jsonify({"valid": False, "errors": [f"Validation error: {str(e)}"]})
 
 if __name__ == "__main__":
-    main()
+    print("Starting Recipe Generator Web App...")
+    print("Navigate to http://localhost:5000 in your web browser")
+    print("Press Ctrl+C to stop the server")
+    app.run(debug = True, host = "0.0.0.0", port = 5000)
