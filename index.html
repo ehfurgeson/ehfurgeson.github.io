@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eli Furgeson</title>
+    <meta
+      name="description"
+      content="Eli Furgeson — Statistics student at Cornell focused on data science, ML, and analytics."
+    />
+    <meta name="author" content="Eli Furgeson" />
+    <meta property="og:title" content="Eli Furgeson" />
+    <meta
+      property="og:description"
+      content="Statistics student at Cornell focused on data science, ML, and analytics."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Syne:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container is--full">
+        <nav class="nav-row" aria-label="Primary">
+          <div class="nav-row__right">
+            <button
+              class="menu-button"
+              type="button"
+              data-menu-toggle
+              aria-expanded="false"
+              aria-controls="site-menu"
+            >
+              <div class="menu-button-text" aria-hidden="true">
+                <span>Menu</span>
+                <span>Close</span>
+              </div>
+              <span class="icon-wrap" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M7.33 16V0h1.34v16H7.33z" />
+                  <path d="M16 8.67H0V7.33h16v1.34z" />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="nav" data-nav id="site-menu" aria-hidden="true">
+      <div class="overlay" data-overlay></div>
+      <div class="menu">
+        <div class="menu-bg" aria-hidden="true">
+          <div class="bg-panel first"></div>
+          <div class="bg-panel second"></div>
+        </div>
+        <div class="menu-content">
+          <ul class="menu-list">
+            <li class="menu-list-item">
+              <a class="menu-link" href="#about"><span class="menu-link-heading">About me</span><span class="menu-link-bg"></span></a>
+            </li>
+            <li class="menu-list-item">
+              <a class="menu-link" href="#experience"><span class="menu-link-heading">Experience</span><span class="menu-link-bg"></span></a>
+            </li>
+            <!-- 
+            <li class="menu-list-item">
+              <a class="menu-link" href="#projects"><span class="menu-link-heading">Portfolio</span><span class="menu-link-bg"></span></a>
+            </li>
+             -->
+            <li class="menu-list-item">
+              <a class="menu-link" href="#skills"><span class="menu-link-heading">Skills</span><span class="menu-link-bg"></span></a>
+            </li>
+            <li class="menu-list-item">
+              <a class="menu-link" href="#contact"><span class="menu-link-heading">Contact</span><span class="menu-link-bg"></span></a>
+            </li>
+          </ul>
+          <div class="menu-details">
+            <p class="p-small">Socials</p>
+            <div class="social-row">
+              <a href="https://linkedin.com/in/elihouston" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              </a>
+              <a href="https://ehfurgeson.github.io" target="_blank" rel="noopener noreferrer" aria-label="Website">
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.753 18.098c-1.215-.995-2.497-1.854-3.83-2.57.333-.849.57-1.746.707-2.674 1.566.424 3.041 1.124 4.363 2.053-.379 1.168-.956 2.244-1.24 3.191zm.247-5.598c-1.521-1.076-3.225-1.885-5.037-2.366.078-.42.125-.848.125-1.284 0-.727-.1-1.43-.284-2.098 1.98.392 3.807 1.291 5.332 2.582-.071 1.096-.082 2.14-.136 3.166zm-9-3.166c0 .436.047.864.125 1.284-1.812.481-3.516 1.29-5.037 2.366-.054-1.026-.065-2.07-.136-3.166 1.525-1.291 3.352-2.19 5.332-2.582-.184.668-.284 1.371-.284 2.098zm-1.04-3.482c-1.333.716-2.615 1.575-3.83 2.57-.284-.947-.861-2.023-1.24-3.191 1.322-.929 2.797-1.629 4.363-2.053.137.928.374 1.825.707 2.674zm8.08 0c.333-.849.57-1.746.707-2.674 1.566.424 3.041 1.124 4.363 2.053-.379 1.168-.956 2.244-1.24 3.191-1.215-.995-2.497-1.854-3.83-2.57zm-8.08 12.73c-.333.849-.57 1.746-.707 2.674-1.566-.424-3.041-1.124-4.363-2.053.379-1.168.956-2.244 1.24-3.191 1.215.995 2.497 1.854 3.83 2.57zm1.04 3.482c.184-.668.284-1.371.284-2.098 0-.436-.047-.864-.125-1.284 1.812-.481 3.516-1.29 5.037-2.366.054 1.026.065 2.07.136 3.166-1.525 1.291-3.352 2.19-5.332 2.582zm7.04-3.482c1.333-.716 2.615-1.575 3.83-2.57.284.947.861 2.023 1.24 3.191-1.322.929-2.797 1.629-4.363 2.053-.137-.928-.374-1.825-.707-2.674z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main id="top">
+      <section class="hero" aria-label="Introduction">
+        <canvas id="name-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+        <div class="hero-fallback">
+          <h1>Eli Furgeson</h1>
+          <p>Statistics · Cornell</p>
+        </div>
+        <div class="scroll-hint">Scroll</div>
+      </section>
+
+      <section id="about">
+        <div class="about-layout reveal">
+          <img class="about-side about-side--left" src="assets/img/tree.jpg" alt="" />
+          <div class="paper-bg-container">
+            <div class="paper-bg" aria-hidden="true"><div class="paper-fold"></div></div>
+            <div class="headline">
+              <h1>About Me</h1>
+              <div class="separator"></div>
+            </div>
+            <div class="intro">
+              <p>
+                As a statistics student at Cornell University with a minor in Computer Science, 
+                I am passionate about using data responsibly to make informed decisions.
+                With experience across forensic analytics, financial data science, and networks, 
+                I look for work that is rigorous, useful, and grounded in the real world.
+              </p>
+              <a class="button" href="#experience">See experience</a>
+            </div>
+            <div class="mobile-images-container">
+              <img class="mobile-img" src="assets/img/tree.jpg" alt="Tree climbing" />
+              <img class="mobile-img" src="assets/img/sunset.jpg" alt="Sunset over campus" />
+            </div>
+          </div>
+          <img class="about-side about-side--right" src="assets/img/sunset.jpg" alt="" />
+        </div>
+      </section>
+
+      <section class="panes-root" id="experience">
+        <h1 class="section-title reveal">Experience</h1>
+        <ul class="panes reveal" aria-label="Work experience">
+          <li data-active="true" tabindex="0">
+            <article class="exp-article">
+              <h3 class="exp-title">Ankura</h3>
+              <div class="exp-content">
+                <p class="exp-role">Forensic Data &amp; Analytics Intern</p>
+                <p class="exp-meta">New York, NY · June 2026 – August 2026</p>
+                <ul class="exp-bullets">
+                  <li>
+                    Engineered cloud-based analytics pipelines on Snowflake using Python and SQL,
+                    translating complex financial risk data into actionable reporting for primary
+                    stakeholders
+                  </li>
+                  <li>
+                    Designed and analyzed statistical testing frameworks to compare document
+                    extraction models, communicating a 30% reduction in manual review time to
+                    project leadership
+                  </li>
+                </ul>
+              </div>
+              <div class="exp-icon"><img class="exp-logo" src="assets/img/ankura.png" alt="Ankura" /></div>
+              <div class="gradient" style="background: linear-gradient(to right bottom, #444, #111)"></div>
+            </article>
+          </li>
+
+          <li data-active="false" tabindex="0">
+            <article class="exp-article">
+              <h3 class="exp-title">CS 4300: Language &amp; Information</h3>
+              <div class="exp-content">
+                <p class="exp-role">Teaching Assistant · Language &amp; Information</p>
+                <p class="exp-meta">Cornell University · Ithaca, NY · January 2026 – May 2026</p>
+                <ul class="exp-bullets">
+                  <li>
+                    Mentored student projects on integrating predictive models with RAG pipelines,
+                    providing technical feedback on algorithm efficiency and vector space
+                    methodologies
+                  </li>
+                  <li>
+                    Guided students through a comprehensive project where they implemented a custom
+                    LLM RAG system with their own retrieval algorithms
+                  </li>
+                </ul>
+              </div>
+              <div class="exp-icon"><img class="exp-logo" src="assets/img/cornell.png" alt="Cornell University" /></div>
+              <div class="gradient" style="background: linear-gradient(to right bottom, #b31b1b, #5c0d0d)"></div>
+            </article>
+          </li>
+
+          <li data-active="false" tabindex="0">
+            <article class="exp-article">
+              <h3 class="exp-title">Bookkeeping for Good</h3>
+              <div class="exp-content">
+                <p class="exp-role">Data Science Intern</p>
+                <p class="exp-meta">Bookkeeping for Good · Chicago, IL · May 2025 – August 2025</p>
+                <ul class="exp-bullets">
+                  <li>
+                    Wrote complex SQL queries and used Python (pandas) to analyze relational
+                    transaction data, identifying financial anomalies and upcoming business risks
+                  </li>
+                  <li>
+                    Developed statistical classification models and synthesized customer financial
+                    performance metrics, eliminating 15 hours of manual weekly reconciliation
+                  </li>
+                  <li>
+                    Built interactive dashboards summarizing ledger reconciliation performance for
+                    finance stakeholders
+                  </li>
+                </ul>
+              </div>
+              <div class="exp-icon"><div class="exp-logo" style="background:#2f5d50">B4G</div></div>
+              <div class="gradient" style="background: linear-gradient(to right bottom, #4a7c6f, #1e3d34)"></div>
+            </article>
+          </li>
+
+          <li data-active="false" tabindex="0">
+            <article class="exp-article">
+              <h3 class="exp-title">CS 2850: Networks</h3>
+              <div class="exp-content">
+                <p class="exp-role">Teaching Assistant · Networks</p>
+                <p class="exp-meta">Cornell University · Ithaca, NY · August 2024 – December 2025</p>
+                <ul class="exp-bullets">
+                  <li>
+                    Guided 50+ students through quantitative applications of graph theory, game
+                    theory, and network analysis to model real-world systems including financial
+                    markets and strategic behavior
+                  </li>
+                  <li>
+                    Taught students how PageRank works and how centrality and path-based measures
+                    reveal structure and influence in large networks
+                  </li>
+                </ul>
+              </div>
+              <div class="exp-icon"><img class="exp-logo" src="assets/img/cornell.png" alt="Cornell University" /></div>
+              <div class="gradient" style="background: linear-gradient(to right bottom, #666, #222)"></div>
+            </article>
+          </li>
+
+          <li data-active="false" tabindex="0">
+            <article class="exp-article">
+              <h3 class="exp-title">REI</h3>
+              <div class="exp-content">
+                <p class="exp-role">Store Sales Specialist</p>
+                <p class="exp-meta">Ithaca, NY · February 2025 – May 2025</p>
+                <ul class="exp-bullets">
+                  <li>
+                    Translated technical gear specifications into accessible insights, helping
+                    customers safely explore environments from local trails to winter camping in
+                    the White Mountains
+                  </li>
+                  <li>
+                    Championed the co-op’s mission of outdoor discovery by listening closely,
+                    communicating complex product information, and shaping tailored solutions
+                  </li>
+                </ul>
+              </div>
+              <div class="exp-icon"><img class="exp-logo" src="assets/img/REI_logo.svg.webp" alt="REI" /></div>
+              <div class="gradient" style="background: linear-gradient(to right bottom, #555, #222)"></div>
+            </article>
+          </li>
+
+          <li data-active="false" tabindex="0">
+            <article class="exp-article">
+              <h3 class="exp-title">COE</h3>
+              <div class="exp-content">
+                <p class="exp-role">Tree Climbing Instructor</p>
+                <p class="exp-meta">Cornell Outdoor Education · Ithaca, NY · April 2024 – May 2026</p>
+                <ul class="exp-bullets">
+                  <li>
+                    Enforce strict safety protocols and critical decision-making in dynamic
+                    environments while communicating complex physical mechanics to diverse groups
+                  </li>
+                  <li>
+                    Adapt instructional methods and troubleshoot logistical challenges on the fly
+                    for varying skill levels and unpredictable conditions
+                  </li>
+                </ul>
+              </div>
+              <div class="exp-icon"><div class="exp-logo" style="background:#3d5a3d">COE</div></div>
+              <div class="gradient" style="background: linear-gradient(to right bottom, #6b8f6b, #2a3d2a)"></div>
+            </article>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 
+      <section id="projects">
+        <h1 class="section-title leftish reveal">Projects</h1>
+        <div class="projects-wrap">
+          <div class="projects-grid">
+            <article class="project-card reveal">
+              <h2>Custom LLM RAG Studio</h2>
+              <p>
+                Mentored and coached student teams building end-to-end RAG systems—custom
+                retrievers, embedding spaces, and evaluation loops for language &amp; information
+                coursework.
+              </p>
+              <div class="tags">
+                <span class="tag">RAG</span>
+                <span class="tag">LLMs</span>
+                <span class="tag">Retrieval</span>
+                <span class="tag">Teaching</span>
+              </div>
+            </article>
+            <article class="project-card reveal">
+              <h2>Snowflake Risk Pipelines</h2>
+              <p>
+                Cloud analytics pipelines that transform financial risk data into stakeholder-ready
+                reporting, paired with statistical tests for document extraction model comparison.
+              </p>
+              <div class="tags">
+                <span class="tag">Snowflake</span>
+                <span class="tag">Python</span>
+                <span class="tag">SQL</span>
+                <span class="tag">Stats</span>
+              </div>
+            </article>
+            <article class="project-card reveal">
+              <h2>Ledger Anomaly Detection</h2>
+              <p>
+                Classification models and SQL-driven transaction analysis that surfaced financial
+                anomalies and cut weekly reconciliation work by 15 hours.
+              </p>
+              <div class="tags">
+                <span class="tag">pandas</span>
+                <span class="tag">SQL</span>
+                <span class="tag">Modeling</span>
+              </div>
+            </article>
+            <article class="project-card reveal">
+              <h2>Reconciliation Dashboards</h2>
+              <p>
+                Interactive dashboards summarizing ledger reconciliation performance so finance
+                teams could act on clear, timely metrics.
+              </p>
+              <div class="tags">
+                <span class="tag">Tableau</span>
+                <span class="tag">PowerBI</span>
+                <span class="tag">Analytics</span>
+              </div>
+            </article>
+            <article class="project-card wide reveal">
+              <div>
+                <h2>And more...</h2>
+                <p style="margin: 0">
+                  Coursework across statistical methods, machine learning, deep learning, computer
+                  vision, and language &amp; information—plus outdoor instruction with Cornell
+                  Outdoor Education.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section> 
+      -->
+
+      <section id="skills">
+        <h1 class="section-title leftish reveal">Skills</h1>
+        <div class="skills-wrap">
+          <div class="skills-grid">
+            <div class="skill-group reveal">
+              <h2>Analytics &amp; Visualization</h2>
+              <div class="tags">
+                <span class="tag">Tableau</span>
+                <span class="tag">PowerBI</span>
+                <span class="tag">Bayesian Statistics</span>
+                <span class="tag">Interactive Dashboards</span>
+              </div>
+            </div>
+            <div class="skill-group reveal">
+              <h2>Programming &amp; Data</h2>
+              <div class="tags">
+                <span class="tag">SQL</span>
+                <span class="tag">Python 3</span>
+                <span class="tag">R</span>
+                <span class="tag">C++</span>
+                <span class="tag">dbt</span>
+              </div>
+            </div>
+            <div class="skill-group reveal">
+              <h2>Data Science &amp; ML</h2>
+              <div class="tags">
+                <span class="tag">pandas</span>
+                <span class="tag">scikit-learn</span>
+                <span class="tag">PyTorch</span>
+                <span class="tag">Statistical Modeling</span>
+                <span class="tag">Forecasting</span>
+              </div>
+            </div>
+            <div class="skill-group reveal">
+              <h2>Databases &amp; Cloud</h2>
+              <div class="tags">
+                <span class="tag">Snowflake</span>
+                <span class="tag">PostgreSQL</span>
+                <span class="tag">AWS</span>
+                <span class="tag">Vercel</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <h1 class="section-title leftish reveal">Contact</h1>
+        <div class="contact-wrap reveal">
+          <div class="contact-grid">
+            <div>
+              <h2>Socials</h2>
+              <div class="contact-links">
+                <a href="https://linkedin.com/in/elihouston" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://ehfurgeson.github.io">ehfurgeson.github.io</a>
+              </div>
+            </div>
+            <div>
+              <h2>Email</h2>
+              <div class="contact-links">
+                <a href="mailto:ehf38@cornell.edu">ehf38@cornell.edu</a>
+                <span class="contact-note">Chicago, IL · 773-904-6190</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© <span id="year"></span> Eli Furgeson · Cornell University · GPA 3.9/4.0 · Expected May 2027</p>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <script src="assets/js/main.js" defer></script>
+  </body>
+</html>
